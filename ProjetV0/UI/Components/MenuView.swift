@@ -13,6 +13,7 @@ struct MenuView: View {
     @Binding var session : Utilisateur?
     @Binding var showMenu : Bool
     
+    
     var whoIsActive : String
     
     func logged() -> Row {
@@ -65,6 +66,7 @@ struct MenuView: View {
             
             NavigationLink(destination: Accueil()) {
                 Row(rowActive: whoIsActive == "Accueil", icon: "house", text: "Accueil")
+                
             }
             //Text("Utilisateur").font(.largeTitle).padding(.leading, -30).foregroundColor(.white)
             

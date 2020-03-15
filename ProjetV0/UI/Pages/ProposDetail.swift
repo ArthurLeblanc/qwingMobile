@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ProposDetail: View {
     
-    
+    var proposDetailViewModel : ProposDetailViewModel = ProposDetailViewModel()
     let session : Utilisateur?
     @State var showComments : Bool = false
     @State var showAnswers : Bool = false
@@ -43,7 +43,7 @@ struct ProposDetail: View {
                 List {
                     ForEach(contenu.commentaires) {
                         c in
-                        Text(c.contenu)
+                        CommentRow(commentaire : c)
                         if (self.session != nil){
                             // Ajout d'un like TODO
                             Button(action : {
@@ -62,16 +62,18 @@ struct ProposDetail: View {
                     }
                     
                 }
-                Text("Ajout d'un commentaire :")
+                Spacer()
+                Text("Ajouter un commentaire")
                 Form {
                     TextField("Commentaire : ", text: $commentaire)
                 }
                 NavigationLink(destination : Accueil(session: self.session)) {
                     Button(action: {
-                        self.contenu.commentaires.append(
+                        self.proposDetailViewModel.addCommentToPropos(commentaire: self.commentaire, propos: self.contenu)
+                        /*self.contenu.commentaires.append(
                             Commentaire(contenu: self.commentaire, createur: self.session, propos: self.contenu, likes: 0, dislikes: 0))
                         self.showComments = false
-                        self.showComments = true
+                        self.showComments = true*/
 
 
                     }) {
@@ -113,6 +115,7 @@ struct ProposDetail: View {
                         }
                     
                 }
+                Spacer()
                 Text("Ajout d'une réponse :")
                 Form {
                     TextField("Reponse : ", text: $contenuR)
@@ -120,11 +123,11 @@ struct ProposDetail: View {
                 }
                 NavigationLink(destination : Accueil(session: self.session)) {
                     Button(action: {
-                        self.contenu.reponses.append(
+                        /*self.contenu.reponses.append(
                             Reponse(contenu : self.contenuR, categorie : self.categorieR, createur : self.session, propos: self.contenu, likes: 0, dislikes: 0)
                         )
                         self.showAnswers = false
-                        self.showAnswers = true
+                        self.showAnswers = true*/
 
                     }) {
                         Text("Ajouter la reponse")
@@ -147,7 +150,7 @@ struct ProposDetail: View {
                     self.showComments = true
                     
                 }) {
-                    Text("Commentaires")
+                    Text("Commentaires")                                    .foregroundColor(Color(red: 0.933, green: 0.412, blue: 0.247))
                 }
                 Spacer()
                 Button(action: {
@@ -155,18 +158,17 @@ struct ProposDetail: View {
                     self.showAnswers = true
                     
                 }) {
-                    Text("Réponses")
+                    Text("Réponses")                                    .foregroundColor(Color(red: 0.933, green: 0.412, blue: 0.247))
                 }
                 Spacer()
                 
-            }.padding(.top, 10.0)
+            }.padding(.top, 10.0).padding(.bottom, 10.0)
             if(self.showAnswers){
                 answers()
             }
             if(self.showComments){
                 comments()
             }
-            Spacer()
         }
     }
 }

@@ -30,7 +30,7 @@ struct AjoutPropos: View {
             Text("Ajout d'un contenu")
             Form {
                 TextField("Contenu : ", text: $contenu)
-                TextField("Categorie : ", text: $categorie)
+                PickerView()
                 
             }
             //Attention Bien faire le retour ou effacer les champs

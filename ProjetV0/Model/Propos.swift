@@ -10,15 +10,14 @@ import Foundation
 
 class Propos : Contenu {
  
-    public init(contenu: String, categorie : String, createur : Utilisateur?, likes: Int?, reponses: [Reponse]?, commentaires: [Commentaire]?) {
-        super.init(contenu : contenu, createur : createur, likes: likes)
+    public init(contenu: String, categorie : String, createur : Utilisateur?, likes: Int?, reponses: [Reponse]?, commentaires: [Commentaire]?, idC : String) {
+        super.init(contenu : contenu, createur : createur, likes: likes, idC : idC)
         self.categorie = categorie
         self.reponses = reponses ?? []
         self.commentaires = commentaires ?? []
     }
     
     @Published var categorie : String = ""
-    @Published var date : Date = Date()
     var reponses : [Reponse] = [Reponse]()
     var commentaires : [Commentaire] = [Commentaire]()
 }

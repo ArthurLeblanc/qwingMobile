@@ -10,8 +10,9 @@ import Foundation
 
 class Contenu : Identifiable, ObservableObject {
     
-    public init (contenu: String, createur : Utilisateur?, likes: Int?) {
+    public init (contenu: String, createur : Utilisateur?, likes: Int?, idC : String) {
         self.contenu = contenu
+        self.idC = idC
         if let a = likes  {
             self.likes = a
         }
@@ -21,10 +22,10 @@ class Contenu : Identifiable, ObservableObject {
     }
     
     @Published var contenu : String
-    @Published var likes : Int = 0
-    @Published var createur : Utilisateur? = nil
-    
-    var id = UUID()
+    @Published var idC : String
 
+    @Published var likes : Int = 0
+    @Published var date : Date = Date()
+    @Published var createur : Utilisateur? = nil
 }
 

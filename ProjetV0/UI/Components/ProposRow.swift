@@ -13,9 +13,11 @@ struct ProposRow: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("proposé par - \(propos.createur?.pseudo ?? "Anonyme")")
+            HStack{
+                Text("proposé par - \(propos.createur?.pseudo ?? "Anonyme")")
                 .font(.caption)
-                .padding([.top, .leading])
+                .padding([.top, .leading])                
+            }
             Text(self.propos.contenu)
                 .font(.headline)
                 .padding(.all)
