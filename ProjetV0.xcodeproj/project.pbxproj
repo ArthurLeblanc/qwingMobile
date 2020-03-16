@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		660084FA241ECA2C00BF8B94 /* ProposDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660084F9241ECA2C00BF8B94 /* ProposDetailViewModel.swift */; };
-		660084FD241ECA4A00BF8B94 /* CommentRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660084FB241ECA4A00BF8B94 /* CommentRow.swift */; };
-		660084FE241ECA4A00BF8B94 /* PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660084FC241ECA4A00BF8B94 /* PickerView.swift */; };
 		66008500241EF76D00BF8B94 /* genericDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660084FF241EF76D00BF8B94 /* genericDecode.swift */; };
 		6655E2722413E4A700BD815D /* MonCompte.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6655E2702413E4A700BD815D /* MonCompte.swift */; };
 		6655E2752413EA0400BD815D /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6655E2742413EA0400BD815D /* WebService.swift */; };
@@ -29,6 +26,9 @@
 		665D0EEA23F972E600C3466D /* Accueil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665D0EE923F972E600C3466D /* Accueil.swift */; };
 		665D0EEC23F9731E00C3466D /* ProposDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665D0EEB23F9731E00C3466D /* ProposDetail.swift */; };
 		665D0EEE23F99DD800C3466D /* AjoutPropos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665D0EED23F99DD800C3466D /* AjoutPropos.swift */; };
+		666769A2241F141900197B2D /* ProposDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666769A1241F141900197B2D /* ProposDetailViewModel.swift */; };
+		666769A5241F142100197B2D /* PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666769A3241F142100197B2D /* PickerView.swift */; };
+		666769A6241F142100197B2D /* CommentRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666769A4241F142100197B2D /* CommentRow.swift */; };
 		66CE528324155079008D2FDE /* ProposRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CE528224155079008D2FDE /* ProposRow.swift */; };
 		66EED2FF2415C06900E9B4BF /* ReponseRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EED2FE2415C06900E9B4BF /* ReponseRow.swift */; };
 		66FE35C624096F490068C715 /* Utilisateur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE35C524096F490068C715 /* Utilisateur.swift */; };
@@ -56,9 +56,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		660084F9241ECA2C00BF8B94 /* ProposDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProposDetailViewModel.swift; path = "../../../qwingMobile/ProjetV0/View Models/ProposDetailViewModel.swift"; sourceTree = "<group>"; };
-		660084FB241ECA4A00BF8B94 /* CommentRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentRow.swift; path = ../../../../qwingMobile/ProjetV0/UI/Components/CommentRow.swift; sourceTree = "<group>"; };
-		660084FC241ECA4A00BF8B94 /* PickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PickerView.swift; path = ../../../../qwingMobile/ProjetV0/UI/Components/PickerView.swift; sourceTree = "<group>"; };
 		660084FF241EF76D00BF8B94 /* genericDecode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = genericDecode.swift; sourceTree = "<group>"; };
 		6655E2702413E4A700BD815D /* MonCompte.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonCompte.swift; sourceTree = "<group>"; };
 		6655E2742413EA0400BD815D /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
@@ -83,6 +80,9 @@
 		665D0EE923F972E600C3466D /* Accueil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accueil.swift; sourceTree = "<group>"; };
 		665D0EEB23F9731E00C3466D /* ProposDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposDetail.swift; sourceTree = "<group>"; };
 		665D0EED23F99DD800C3466D /* AjoutPropos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AjoutPropos.swift; sourceTree = "<group>"; };
+		666769A1241F141900197B2D /* ProposDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProposDetailViewModel.swift; sourceTree = "<group>"; };
+		666769A3241F142100197B2D /* PickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerView.swift; sourceTree = "<group>"; };
+		666769A4241F142100197B2D /* CommentRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentRow.swift; sourceTree = "<group>"; };
 		66CE528224155079008D2FDE /* ProposRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposRow.swift; sourceTree = "<group>"; };
 		66EED2FE2415C06900E9B4BF /* ReponseRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReponseRow.swift; sourceTree = "<group>"; };
 		66FE35C524096F490068C715 /* Utilisateur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilisateur.swift; sourceTree = "<group>"; };
@@ -151,7 +151,7 @@
 		6655E27B241485D800BD815D /* View Models */ = {
 			isa = PBXGroup;
 			children = (
-				660084F9241ECA2C00BF8B94 /* ProposDetailViewModel.swift */,
+				666769A1241F141900197B2D /* ProposDetailViewModel.swift */,
 				6655E27C241485F400BD815D /* ProposListeViewModel.swift */,
 				925F7AFA2414ED2200B1A657 /* UserViewModel.swift */,
 			);
@@ -161,8 +161,8 @@
 		665C5082241935D300F61251 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				660084FB241ECA4A00BF8B94 /* CommentRow.swift */,
-				660084FC241ECA4A00BF8B94 /* PickerView.swift */,
+				666769A4241F142100197B2D /* CommentRow.swift */,
+				666769A3241F142100197B2D /* PickerView.swift */,
 				925F7A8A240AA8E500B1A657 /* MenuView.swift */,
 				66CE528224155079008D2FDE /* ProposRow.swift */,
 				66EED2FE2415C06900E9B4BF /* ReponseRow.swift */,
@@ -391,14 +391,14 @@
 				665D0EB223F96B0000C3466D /* AppDelegate.swift in Sources */,
 				66008500241EF76D00BF8B94 /* genericDecode.swift in Sources */,
 				665D0EB423F96B0000C3466D /* SceneDelegate.swift in Sources */,
-				660084FD241ECA4A00BF8B94 /* CommentRow.swift in Sources */,
-				660084FA241ECA2C00BF8B94 /* ProposDetailViewModel.swift in Sources */,
 				66FE35C624096F490068C715 /* Utilisateur.swift in Sources */,
 				66CE528324155079008D2FDE /* ProposRow.swift in Sources */,
 				66EED2FF2415C06900E9B4BF /* ReponseRow.swift in Sources */,
-				660084FE241ECA4A00BF8B94 /* PickerView.swift in Sources */,
 				66FE35C8240973090068C715 /* Login.swift in Sources */,
+				666769A5241F142100197B2D /* PickerView.swift in Sources */,
+				666769A6241F142100197B2D /* CommentRow.swift in Sources */,
 				665D0EEE23F99DD800C3466D /* AjoutPropos.swift in Sources */,
+				666769A2241F141900197B2D /* ProposDetailViewModel.swift in Sources */,
 				66FE35CA240976190068C715 /* Inscription.swift in Sources */,
 				925F7AFB2414ED2200B1A657 /* UserViewModel.swift in Sources */,
 				925F7A8B240AA8E500B1A657 /* MenuView.swift in Sources */,
