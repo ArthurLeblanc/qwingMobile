@@ -15,7 +15,7 @@ struct AjoutPropos: View {
     @State var categorie : String = ""
     @State var jaime : Int = 0
     @State var jaimePas : Int = 0
-    @Environment(\.presentationMode) var presentationMode
+
     
     /*
      init(utilisateur : Utilisateur, liste : UtilisateurListe, propos : Binding<[Propos]>){
@@ -36,7 +36,7 @@ struct AjoutPropos: View {
             //Attention Bien faire le retour ou effacer les champs
             NavigationLink(destination : Accueil(session: self.session)) {
                 Button(action: {
-                    self.presentationMode.wrappedValue.dismiss()
+                    //self.presentationMode.wrappedValue.dismiss()
                 }) {
                     Text("Ajouter")
                 }

@@ -15,13 +15,13 @@ struct Login: View {
     //let utilisateurs: [Utilisateur] = [Utilisateur(pseudo: "lauren", email: "lauren", password: "lauren", isAdmin: true, ville: "Montpellier")]
     
     //Pour faire un retour une fois qu'on a appuyé sur un bouton
-    @Environment(\.presentationMode) var presentationMode
+    //Environment(\.presentationMode) var presentationMode
     
     @State var mail : String = ""
     @State var password : String = ""
     @State var showMenu = false
     @Binding var session : Utilisateur?
-    
+
     var body: some View {
         
         let drag = DragGesture()
@@ -55,6 +55,7 @@ struct Login: View {
                                     if userViewModel.loggedUser != nil {
                                         self.session = userViewModel.loggedUser!
                                         print("pseudo de l'utilisateur connecté : \(self.session!.pseudo)")
+                                        //self.presentationMode.wrappedValue.dismiss()
                                         
                                     }
                                     /* A MODIFIER */
@@ -84,7 +85,7 @@ struct Login: View {
                         
                     }.navigationViewStyle(StackNavigationViewStyle())
                     if self.showMenu {
-                        MenuView(session: self.$session, showMenu: self.$showMenu, whoIsActive: "Accueil")
+                        MenuView(session: self.$session, showMenu: self.$showMenu, whoIsActive: "Connexion")
                             .transition(.move(edge: .leading))
                     }
                 }

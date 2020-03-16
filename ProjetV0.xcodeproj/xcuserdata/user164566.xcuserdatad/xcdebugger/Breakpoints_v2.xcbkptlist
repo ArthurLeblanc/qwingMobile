@@ -7,86 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "41E15F30-F94C-406C-B21C-FE4C8095D1E6"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ProjetV0/Services/WebService.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
-            landmarkName = "getPropos(completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "3458627F-F917-483D-B0FC-339349D1AEB9"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ProjetV0/Services/WebService.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
-            landmarkName = "getPropos(completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8F26952D-7DE5-4E24-BF10-284BDA0FC946"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ProjetV0/Model/Propos.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "13"
-            endingLineNumber = "13"
-            landmarkName = "init(contenu:categorie:createur:likes:reponses:commentaires:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "8F26952D-7DE5-4E24-BF10-284BDA0FC946 - c7e551bca2ecc175"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ProjetV0.Propos.__allocating_init(contenu: Swift.String, categorie: Swift.String, createur: Swift.Optional&lt;ProjetV0.Utilisateur&gt;, likes: Swift.Optional&lt;Swift.Int&gt;, reponses: Swift.Optional&lt;Swift.Array&lt;ProjetV0.Reponse&gt;&gt;, commentaires: Swift.Optional&lt;Swift.Array&lt;ProjetV0.Commentaire&gt;&gt;) -&gt; ProjetV0.Propos"
-                  moduleName = "ProjetV0"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/user164566/Desktop/Projet/App%20mobile/ProjetV0/Model/Propos.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "34">
-               </Location>
-               <Location
-                  uuid = "8F26952D-7DE5-4E24-BF10-284BDA0FC946 - 5a1c59e753682b3"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ProjetV0.Propos.init(contenu: Swift.String, categorie: Swift.String, createur: Swift.Optional&lt;ProjetV0.Utilisateur&gt;, likes: Swift.Optional&lt;Swift.Int&gt;, reponses: Swift.Optional&lt;Swift.Array&lt;ProjetV0.Reponse&gt;&gt;, commentaires: Swift.Optional&lt;Swift.Array&lt;ProjetV0.Commentaire&gt;&gt;) -&gt; ProjetV0.Propos"
-                  moduleName = "ProjetV0"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/user164566/Desktop/Projet/App%20mobile/ProjetV0/Model/Propos.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "20"
-                  endingLineNumber = "20"
-                  offsetFromSymbolStart = "463">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "F69D29F8-3C90-404A-8CFC-0D376D528F31"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -94,8 +14,8 @@
             filePath = "ProjetV0/Services/WebService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
             landmarkName = "getUserInfosFromToken(token:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -110,9 +30,25 @@
             filePath = "ProjetV0/Services/WebService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
             landmarkName = "getTokenFromLoginInfos(email:password:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C135B8E9-9745-4297-9C00-C919330A2A71"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ProjetV0/Services/WebService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "getPropos(completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -13,6 +13,7 @@ struct Accueil: View {
     @ObservedObject var proposListe = ProposListeViewModel.singleton
     @State var session : Utilisateur?
     @State var showMenu = false
+    @Environment(\.presentationMode) var presentationMode
     
     func phraseBienvenue() -> some View {
         if let session = self.session {
@@ -65,7 +66,7 @@ struct Accueil: View {
                                 ForEach (self.proposListe.proposListe) {
                                     p in
                                     NavigationLink(destination : ProposDetail(contenu : p, utilisateur: self.session)) {
-                                        ProposRow(propos: p)
+                                        ProposRow(propos: p, session: self.session)
                                     }
                                 }
                             }

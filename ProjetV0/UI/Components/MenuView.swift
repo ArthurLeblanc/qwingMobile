@@ -12,7 +12,8 @@ struct MenuView: View {
     
     @Binding var session : Utilisateur?
     @Binding var showMenu : Bool
-    
+    @Environment(\.presentationMode) var presentationMode
+
     
     var whoIsActive : String
     
@@ -65,20 +66,22 @@ struct MenuView: View {
                 .padding(.bottom, 40)
             
             NavigationLink(destination: Accueil()) {
-                Row(rowActive: whoIsActive == "Accueil", icon: "house", text: "Accueil")
-                
+                Button(action: {
+                    self.presentationMode.wrappedValue.dismiss()
+                    self.showMenu.toggle()
+                }) {
+                    Row(rowActive: self.whoIsActive == "Accueil", icon: "house", text: "Accueil")                }
             }
             //Text("Utilisateur").font(.largeTitle).padding(.leading, -30).foregroundColor(.white)
             
             NavigationLink(destination: AjoutPropos(session: self.$session)) {
+                
                 Row(rowActive: whoIsActive == "Ajouter un propos", icon: "plus.circle", text: "Ajouter Propos")
             }
             
             Row(rowActive: false, icon: "plus.circle", text: "Mes propos")
             Row(rowActive: false, icon: "plus.circle", text: "Mes réponses")
             Row(rowActive: false, icon: "heart", text: "Mes propos entendus")
-            
-            
             
             Spacer()
             if (self.session != nil) {
