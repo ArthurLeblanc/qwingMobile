@@ -21,6 +21,16 @@ class ProposListeViewModel : ObservableObject {
             
         }
     }
+    func addPropos(contenu : String, categorie : String, createur : Utilisateur?) {
+        WebService().addPropos(contenu : contenu , categorie: categorie, createur: createur)
+        WebService().getPropos { propos in
+            if let propos = propos {
+                self.proposListe = propos
+                
+            }
+            
+        }
+    }
 }
 
 

@@ -15,6 +15,9 @@ struct AjoutPropos: View {
     @State var categorie : String = ""
     @State var jaime : Int = 0
     @State var jaimePas : Int = 0
+    @Environment(\.presentationMode) var presentationMode
+    @State var picker : PickerView = PickerView(categories : ["Dans la rue", "Dans les transports", "Au travail", "Autre"])
+
 
     
     /*
@@ -30,13 +33,14 @@ struct AjoutPropos: View {
             Text("Ajout d'un contenu")
             Form {
                 TextField("Contenu : ", text: $contenu)
-                PickerView()
+                self.picker
                 
             }
             //Attention Bien faire le retour ou effacer les champs
             NavigationLink(destination : Accueil(session: self.session)) {
                 Button(action: {
-                    //self.presentationMode.wrappedValue.dismiss()
+                    ProposListeViewModel().addPropos(contenu: self.contenu, categorie: self.picker.categories[self.picker.selection], createur: self.session)
+                    self.presentationMode.wrappedValue.dismiss()
                 }) {
                     Text("Ajouter")
                 }

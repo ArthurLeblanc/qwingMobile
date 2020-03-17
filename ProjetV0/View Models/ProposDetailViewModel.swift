@@ -14,4 +14,8 @@ class ProposDetailViewModel : ObservableObject {
         WebService().addCommentToPropos(propos: propos, commentaire: commentaire)
     }
 
+    func addReponseToPropos(contenu : String, categorie : String, propos : Propos, createur : Utilisateur?) {
+        WebService().addReponseToPropos(propos: propos, contenu: contenu, categorie: categorie, createur: createur)
+    }
+
 }

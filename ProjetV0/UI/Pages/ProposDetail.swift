@@ -22,6 +22,8 @@ struct ProposDetail: View {
     
     @State var commentaire : String = ""
     
+    @State var picker : PickerView = PickerView(categories : ["Humour", "Texte de loi", "Citation", "Autre"])
+    
     func postCreator(c : Contenu) -> String {
         if let createurPost = c.createur{
             return createurPost.pseudo
@@ -119,10 +121,11 @@ struct ProposDetail: View {
                 Text("Ajout d'une réponse :")
                 Form {
                     TextField("Reponse : ", text: $contenuR)
-                    TextField("Categorie : ", text : $categorieR)
+                    self.picker
                 }
                 NavigationLink(destination : Accueil(session: self.session)) {
                     Button(action: {
+                        self.proposDetailViewModel.addReponseToPropos(contenu: self.contenuR, categorie: self.picker.categories[self.picker.selection], propos: self.contenu, createur: self.session)
                         /*self.contenu.reponses.append(
                             Reponse(contenu : self.contenuR, categorie : self.categorieR, createur : self.session, propos: self.contenu, likes: 0, dislikes: 0)
                         )

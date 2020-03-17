@@ -9,8 +9,12 @@
 import SwiftUI
 
 struct PickerView: View {
-    @State private var selection = 0
-    let categories = ["Dans la rue","Dans les transports","Au travail","Autre"]
+    
+    init(categories : [String]) {
+        self.categories = categories
+    }
+    @State var selection = 0
+    var categories : [String]
     
     var body: some View {
         
@@ -24,8 +28,8 @@ struct PickerView: View {
     }
 }
 
-struct Picker_Previews: PreviewProvider {
+/*struct Picker_Previews: PreviewProvider {
     static var previews: some View {
         PickerView()
     }
-}
+}*/
