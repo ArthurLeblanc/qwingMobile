@@ -50,11 +50,14 @@ struct MenuView: View {
                         .offset(x: -2, y: -1)
                     
                 }
-                
-                Image(systemName: "pencil")
-                    .foregroundColor(.white)
-                    .font(.system(size: 24, weight: .heavy))
-                    .frame(width: 32, height: 32)
+                if (self.session != nil) {
+                    NavigationLink(destination: MonCompte(session: self.session!)) {
+                        Image(systemName: "pencil")
+                            .foregroundColor(.white)
+                            .font(.system(size: 24, weight: .heavy))
+                            .frame(width: 32, height: 32)
+                    }
+                }
                 
                 
             }.padding(.top, 90)
@@ -64,6 +67,7 @@ struct MenuView: View {
                 .font(.system(size: 20, weight: .semibold))
                 .padding(.top, 10)
                 .padding(.bottom, 40)
+            
             
             NavigationLink(destination: Accueil()) {
                 Button(action: {
@@ -112,7 +116,7 @@ struct Row: View {
     
     var body: some View {
         HStack {
-            Image(systemName: "house")
+            Image(systemName: icon)
                 .foregroundColor(rowActive ? Color(red: 0.059, green: 0.488, blue: 0.939, opacity: 1.0) : .white)
                 .font(.system(size: 15, weight: rowActive ? .bold : .regular))
                 .frame(width: 48, height: 32)

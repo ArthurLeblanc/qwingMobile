@@ -10,32 +10,59 @@ import SwiftUI
 import Foundation
 
 struct MonCompte: View {
-    @Binding var session : Utilisateur
+    
+    @State var session : Utilisateur
     //Pour faire un retour une fois qu'on a appuyé sur un bouton
     @Environment(\.presentationMode) var presentationMode
     
     @State var pseudo : String = ""
     @State var password : String = ""
+    @State var confirmpassword : String = ""
+    
     @State var email : String = ""
-    @State var ville : String = ""
-    //admin .??
     
     var body: some View {
         NavigationView {
             VStack {
-                Text ("Compte")
+                Image("logo")
+                    .resizable()
+                    .frame(width: 150.0, height: 145.0)
+                    .scaledToFit()
                 Spacer()
-                Form {
-                    TextField("Pseudo : ", text: $pseudo)
-                    TextField("Password : ", text : $password)
-                    TextField("Email : ", text : $email)
-                    TextField("Ville : ", text : $ville)
-                    
+                Text ("Mon Compte")
+                    .font(.largeTitle)
+                    .fontWeight(.semibold)
+                    .padding(.bottom, 20)
+                Spacer()
+                TextField("Adresse email : ", text : $email)                    .onAppear {
+                    self.email = self.session.email
                 }
-                Text ("Pseudo : " + self.session.pseudo)
-                Text ("Email : " + self.session.email)
-                
-
+                .padding()
+                .background(lightGreyColor)
+                .cornerRadius(5.0)
+                .padding(.bottom, 20)
+                TextField("Pseudo : ", text: $pseudo)
+                    .onAppear {
+                        self.pseudo = self.session.pseudo
+                }
+                .padding()
+                .background(lightGreyColor)
+                .cornerRadius(5.0)
+                .padding(.bottom, 20)
+                SecureField("Mot de passe: ", text : $password)
+                    .onAppear {
+                        self.password = self.session.password
+                }
+                .padding()
+                .background(lightGreyColor)
+                .cornerRadius(5.0)
+                .padding(.bottom, 20)
+                SecureField(" Confirmation mot de passe : ", text : $confirmpassword)
+                    .padding()
+                    .background(lightGreyColor)
+                    .cornerRadius(5.0)
+                    .padding(.bottom, 20)
+                Spacer()
                 NavigationLink(destination : Accueil(session: self.session)) {
                     Button(action: {
                         self.session = Utilisateur(pseudo: self.pseudo, email: self.email, password: self.password)
@@ -43,18 +70,24 @@ struct MonCompte: View {
                         self.presentationMode.wrappedValue.dismiss()
                         
                     }) {
-                    Text("Modifier")
+                        Text("Modifier")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(width: 220, height: 60)
+                            .background(Color.blue)
+                            .cornerRadius(15.0)
                     }
                 }
-            }
+            }.padding(.horizontal, 30.0)
         }
     }
 }
 
 /*
-struct Inscription_Previews: PreviewProvider {
-    static var previews: some View {
-        Inscription()
-    }
-}
-*/
+ struct Inscription_Previews: PreviewProvider {
+ static var previews: some View {
+ Inscription()
+ }
+ }
+ */
