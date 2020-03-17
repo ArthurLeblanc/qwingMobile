@@ -13,7 +13,7 @@ struct MenuView: View {
     @Binding var session : Utilisateur?
     @Binding var showMenu : Bool
     @Environment(\.presentationMode) var presentationMode
-
+    
     
     var whoIsActive : String
     
@@ -22,7 +22,7 @@ struct MenuView: View {
             return Row(rowActive: false, icon: "arrow.uturn.left", text: "Se déconnecter")
         }
         return Row(rowActive: whoIsActive == "Connexion", icon: "arrow.uturn.right", text: "Se connecter")
-            
+        
     }
     
     var body: some View {
@@ -35,20 +35,20 @@ struct MenuView: View {
                     .frame(width: 32, height: 32)
                 ZStack {
                     Image("pepe")
-                    .resizable()
+                        .resizable()
                         .frame(width: 60, height: 60)
-                    .clipShape(Circle())
+                        .clipShape(Circle())
                         .padding(.horizontal, 24)
                     Circle()
-                    .stroke(Color(red: 0.059, green: 0.488, blue: 0.939))
+                        .stroke(Color(red: 0.059, green: 0.488, blue: 0.939))
                         .frame(width: 70, height: 70)
                         .offset(x: -2, y: -1)
                     
                     Circle()
-                    .stroke(Color(red: 0.933, green: 0.412, blue: 0.247))
+                        .stroke(Color(red: 0.933, green: 0.412, blue: 0.247))
                         .frame(width: 70, height: 70)
                         .offset(x: -2, y: -1)
-                
+                    
                 }
                 
                 Image(systemName: "pencil")
@@ -56,7 +56,7 @@ struct MenuView: View {
                     .font(.system(size: 24, weight: .heavy))
                     .frame(width: 32, height: 32)
                 
-
+                
             }.padding(.top, 90)
             
             Text(self.session?.pseudo ?? "Anonyme")
@@ -91,11 +91,9 @@ struct MenuView: View {
             } else {
                 NavigationLink(destination: Login(session: self.$session)) {
                     logged()
+                    
                 }
             }
-
-            
-            
             
         }     .padding(.vertical, 30)
             .background(LinearGradient(gradient: Gradient(colors: [.blue, .orange]), startPoint: .topLeading, endPoint: .bottomTrailing))

@@ -50,14 +50,14 @@ struct Accueil: View {
                             
                             Text("Vous avez été victime d'un propos sexiste et vous n'avez pas su répondre ? Partagez votre expérience")
                                 .fontWeight(.light)
-                                .padding(2.0)                                   .foregroundColor(Color(red: 0.02, green: 0.153, blue: 0.208))
+                                .padding(2.0)
+                                .foregroundColor(Color(red: 0.02, green: 0.153, blue: 0.208))
                             NavigationLink(destination : AjoutPropos(session : self.$session)) {
                                 Text ("Ajouter un propos")
                                     .foregroundColor(Color(red: 0.933, green: 0.412, blue: 0.247))
                             }
                             .padding(.top, 20.0)
                             .padding(.bottom, 15.0)
-                            
                             
                             Text("Les plus populaires")
                                 .font(.headline).foregroundColor(Color(red: 0.02, green: 0.153, blue: 0.208))
@@ -66,7 +66,7 @@ struct Accueil: View {
                                 ForEach (self.proposListe.proposListe) {
                                     p in
                                     NavigationLink(destination : ProposDetail(contenu : p, utilisateur: self.session)) {
-                                        ProposRow(propos: p, session: self.session)
+                                        ProposRow(propos: p, liked: p.isLiked(user: self.session), session: self.session)
                                     }
                                 }
                             }
@@ -94,6 +94,7 @@ struct Accueil: View {
                 ))
         }.navigationViewStyle(StackNavigationViewStyle())
     }
+
 }
 /*
  struct Accueil_Previews: PreviewProvider {

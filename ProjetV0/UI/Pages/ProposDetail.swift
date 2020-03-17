@@ -11,7 +11,7 @@ import SwiftUI
 struct ProposDetail: View {
     
     var proposDetailViewModel : ProposDetailViewModel = ProposDetailViewModel()
-    let session : Utilisateur?
+    var session : Utilisateur?
     @State var showComments : Bool = false
     @State var showAnswers : Bool = false
     var formatter = DateFormatter()
@@ -142,7 +142,7 @@ struct ProposDetail: View {
         formatter.dateFormat = "dd/MM/yyyy"
         
         return VStack {
-            ProposRow(propos: contenu)
+            ProposRow(propos: contenu, liked: contenu.isLiked(user: self.session), session: self.session)
             HStack {
                 Spacer()
                 Button(action: {

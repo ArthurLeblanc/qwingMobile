@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ProposRow: View {
     var propos: Propos
-    @State var liked: Bool = false
+    @State var liked: Bool
     var session : Utilisateur?
     @State private var showingAlert = false
     

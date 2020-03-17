@@ -50,10 +50,10 @@ class Utilisateur : Identifiable {
     // Supprime un propos de la liste des propos aimés
     func dislikePropos(propos: Propos) {
         // Récupère l'index du propos et le supprime
-        if let index = self.proposLikes.firstIndex(where: {$0 === propos}) {
+        if let index = self.proposLikes.firstIndex(where: {$0.idC == propos.idC}) {
             self.proposLikes.remove(at: index)
             //Déléguation à l'API qui s'occupe de la suppression dans la base de données
-            WebService().likePropos(propos: propos, utilisateur: self)
+            WebService().dislikePropos(propos: propos, utilisateur: self)
         }
 
     }

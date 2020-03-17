@@ -20,5 +20,12 @@ class Propos : Contenu {
     @Published var categorie : String = ""
     var reponses : [Reponse] = [Reponse]()
     var commentaires : [Commentaire] = [Commentaire]()
+    
+    func isLiked(user: Utilisateur?) -> Bool {
+        if (user != nil) {
+            return (user!.proposLikes.firstIndex{$0.idC == self.idC} != nil)
+        }
+        return false
+    }
 }
 

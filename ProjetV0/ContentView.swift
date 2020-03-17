@@ -12,11 +12,13 @@ struct ContentView: View {
     
     @ObservedObject private var proposList = ProposListeViewModel()
     
+    
     init() {
         UITableView.appearance().separatorColor = .clear
     }
     
     var body: some View {
+        Text("AZccueil")
         /*
         VStack(alignment: .leading) {
             HStack(alignment: .top) {
@@ -47,12 +49,12 @@ struct ContentView: View {
                 
             }  .padding(/*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/, 340).padding(.top, 5.0)
             
-        }*/
+        }
         List {
             ForEach (self.proposList.proposListe) { p in
-                ProposRow(propos: p)
+                ProposRow(propos: Contenu, liked: contenu.isLiked(self.session), session: <#T##Utilisateur?#>)
             }
-        }
+        }*/
     }
 }
 
