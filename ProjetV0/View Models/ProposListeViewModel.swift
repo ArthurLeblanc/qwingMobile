@@ -31,6 +31,10 @@ class ProposListeViewModel : ObservableObject {
             
         }
     }
+    
+    func getProposFromUser(user : Utilisateur) -> [Propos]{
+        return WebService().getProposFromUser(user: user)
+    }
 }
 
 

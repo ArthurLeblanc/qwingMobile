@@ -23,7 +23,7 @@ struct ProposRow: View {
                     .padding([.top, .leading])
                 Spacer()
                 if (self.session != nil && self.session?.email == propos.createur?.email) {
-                    Image(systemName: "hand.thumbsup").padding(.bottom).onTapGesture {
+                    Image(systemName: "trash").foregroundColor(Color.red).padding(.bottom).onTapGesture {
                         WebService().deletePropos(propos: self.propos, createur: self.session!)
                         self.showingAlert2.toggle()
                     }.alert(isPresented: $showingAlert2) {

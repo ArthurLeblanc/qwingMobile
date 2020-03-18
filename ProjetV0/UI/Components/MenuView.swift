@@ -63,10 +63,10 @@ struct MenuView: View {
             }.padding(.top, 90)
             
             Text(self.session?.pseudo ?? "Anonyme")
-                .foregroundColor(.white)
+                /*.foregroundColor(.white)
                 .font(.system(size: 20, weight: .semibold))
                 .padding(.top, 10)
-                .padding(.bottom, 40)
+                .padding(.bottom, 40)*/
             
             
             NavigationLink(destination: Accueil()) {
@@ -82,8 +82,9 @@ struct MenuView: View {
                 
                 Row(rowActive: whoIsActive == "Ajouter un propos", icon: "plus.circle", text: "Ajouter Propos")
             }
-            
-            Row(rowActive: false, icon: "plus.circle", text: "Mes propos")
+            NavigationLink(destination: ProposUser(session: self.session)) {
+                Row(rowActive: false, icon: "rectangle.grid.1x2", text: "Mes propos")
+            }
             Row(rowActive: false, icon: "plus.circle", text: "Mes réponses")
             Row(rowActive: false, icon: "heart", text: "Mes propos entendus")
             
