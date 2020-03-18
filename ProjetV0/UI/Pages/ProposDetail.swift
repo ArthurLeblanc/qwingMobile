@@ -45,21 +45,21 @@ struct ProposDetail: View {
                 List {
                     ForEach(contenu.commentaires) {
                         c in
-                        CommentRow(commentaire : c)
-                        if (self.session != nil){
+                        CommentRow(commentaire : c, session: self.session)
+                        /*if (self.session != nil){
                             // Ajout d'un like TODO
                             Button(action : {
                                 //c.flike(utilisateur : self.session)
                             }) {
-                                Text("Like")
+                                
                             }
                             // Ajout d'un dislike TODO
                             Button(action : {
                                 //c.fdislike(utilisateur : self.session)
                             }) {
-                                Text("Dislike")
+                                
                             }
-                        }
+                        }*/
 
                     }
                     
@@ -71,7 +71,7 @@ struct ProposDetail: View {
                 }
                 NavigationLink(destination : Accueil(session: self.session)) {
                     Button(action: {
-                        self.proposDetailViewModel.addCommentToPropos(commentaire: self.commentaire, propos: self.contenu)
+                        self.proposDetailViewModel.addCommentToPropos(commentaire: self.commentaire, propos: self.contenu, createur: self.session)
                         /*self.contenu.commentaires.append(
                             Commentaire(contenu: self.commentaire, createur: self.session, propos: self.contenu, likes: 0, dislikes: 0))
                         self.showComments = false
@@ -98,7 +98,7 @@ struct ProposDetail: View {
                 List {
                     ForEach(contenu.reponses) {
                             r in
-                        ReponseRow(reponse: r)
+                        ReponseRow(reponse: r, session: self.session)
                             /*Text(r.contenu)
                             if (self.session.getActive() == true){
                                 // Ajout d'un like TODO

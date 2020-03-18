@@ -33,6 +33,8 @@ func getElapsedInterval() -> String {
 struct CommentRow: View {
     
     let commentaire : Commentaire
+    var session : Utilisateur?
+    @State var showingAlert = false
     
     func nomCreateur() -> some View {
         if let createur = commentaire.createur {
@@ -53,7 +55,18 @@ struct CommentRow: View {
     var body: some View {
         return
             VStack(alignment: .leading, spacing: 8) {
-
+                    HStack {
+                        nomCreateur()
+                        Spacer()
+                        if (self.session != nil && self.session?.email == commentaire.createur?.email) {
+                            Image(systemName: "hand.thumbsup").padding(.bottom).onTapGesture {
+                                WebService().deleteCommentaire(reponse: self.commentaire, createur: self.session!)
+                                self.showingAlert.toggle()
+                            }.alert(isPresented: $showingAlert) {
+                                Alert(title: Text("Information"), message: Text("Commentaire supprimé"), dismissButton: .default(Text("Ok")))
+                            }.padding([.top, .trailing])
+                        }
+                    }
                 nomCreateur()
                 Text(commentaire.contenu)
                     .foregroundColor(.white)

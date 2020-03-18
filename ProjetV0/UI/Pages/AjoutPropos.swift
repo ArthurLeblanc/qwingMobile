@@ -17,8 +17,6 @@ struct AjoutPropos: View {
     @State var jaimePas : Int = 0
     @Environment(\.presentationMode) var presentationMode
     @State var picker : PickerView = PickerView(categories : ["Dans la rue", "Dans les transports", "Au travail", "Autre"])
-
-
     
     /*
      init(utilisateur : Utilisateur, liste : UtilisateurListe, propos : Binding<[Propos]>){
@@ -37,7 +35,7 @@ struct AjoutPropos: View {
                 
             }
             //Attention Bien faire le retour ou effacer les champs
-            NavigationLink(destination : Accueil(session: self.session)) {
+            NavigationLink(destination : Accueil()) {
                 Button(action: {
                     ProposListeViewModel().addPropos(contenu: self.contenu, categorie: self.picker.categories[self.picker.selection], createur: self.session)
                     self.presentationMode.wrappedValue.dismiss()

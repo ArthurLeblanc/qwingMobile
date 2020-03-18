@@ -321,7 +321,7 @@ class WebService : ObservableObject {
     }
     
     
-    func addCommentToPropos(propos : Propos, commentaire : String) {
+    func addCommentToPropos(propos : Propos, commentaire : String, createur : Utilisateur?) {
         print("id du propos : " + propos.idC)
         let url = URL(string : self.url + "propos/add-commentaire")
         guard let requestUrl = url else { fatalError() }
@@ -330,6 +330,9 @@ class WebService : ObservableObject {
         request.httpMethod = "PUT"
         print("contenu du commentaire : " + commentaire)
         let putString = "contenu=\(commentaire)&proposId=\(propos.idC)"
+        if let user = createur {
+            request.setValue(user.token, forHTTPHeaderField: "auth-token")
+        }
         request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
         request.httpBody = putString.data(using: String.Encoding.utf8)
         let task = session.dataTask(with: request) { (data, response, error) in
@@ -370,7 +373,7 @@ class WebService : ObservableObject {
         var request = URLRequest(url: requestUrl)
         request.httpMethod = "POST"
         let postString = "contenu=\(contenu)&categorie=\(categorie)"
-        if let user = createur {
+        if let user = createur {	
             request.setValue(user.token, forHTTPHeaderField: "auth-token")
         }
         request.httpBody = postString.data(using: String.Encoding.utf8)
@@ -452,7 +455,116 @@ class WebService : ObservableObject {
         task.resume()
     }
     
-    //.buttonStyle(PlainButtonStyle)
+    func deletePropos(propos : Propos, createur : Utilisateur) {
+        let url = URL(string : self.url + "propos/delete-propos")
+        guard let requestUrl = url else { fatalError() }
+        
+        var request = URLRequest(url: requestUrl)
+        request.httpMethod = "DELETE"
+        let postString = "proposId=\(propos.idC)"
+        request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        request.setValue(createur.token, forHTTPHeaderField: "auth-token")
+        request.httpBody = postString.data(using: String.Encoding.utf8)
+        let task = session.dataTask(with: request) { (data, response, error) in
+            if error != nil || data == nil {
+                print("Erreur côté client")
+                return
+            }
+            print("Code de réponse http : \((response as! HTTPURLResponse).statusCode)")
+            // Vérifie le code HTTP de réponse du serveur
+            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+                print("Erreur du serveur")
+                return
+            }
+            // Vérifie que le format des données du serveur en réponse est bien du JSON
+            guard let mime = response.mimeType, mime == "application/json" else {
+                print("Wrong MIME type!")
+                return
+            }
+            do {
+                let json = try JSON(data: data!)
+                print(json)
+            }
+            catch {
+                print("JSON error: \(error.localizedDescription)")
+            }
+        }
+        task.resume()
+    }
+    
+    func deleteReponse(reponse : Reponse, createur : Utilisateur) {
+        let url = URL(string : self.url + "reponses/delete-reponse")
+        guard let requestUrl = url else { fatalError() }
+        
+        var request = URLRequest(url: requestUrl)
+        request.httpMethod = "DELETE"
+        let postString = "reponseId=\(reponse.idC)"
+        request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        request.setValue(createur.token, forHTTPHeaderField: "auth-token")
+        request.httpBody = postString.data(using: String.Encoding.utf8)
+        let task = session.dataTask(with: request) { (data, response, error) in
+            if error != nil || data == nil {
+                print("Erreur côté client")
+                return
+            }
+            print("Code de réponse http : \((response as! HTTPURLResponse).statusCode)")
+            // Vérifie le code HTTP de réponse du serveur
+            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+                print("Erreur du serveur")
+                return
+            }
+            // Vérifie que le format des données du serveur en réponse est bien du JSON
+            guard let mime = response.mimeType, mime == "application/json" else {
+                print("Wrong MIME type!")
+                return
+            }
+            do {
+                let json = try JSON(data: data!)
+                print(json)
+            }
+            catch {
+                print("JSON error: \(error.localizedDescription)")
+            }
+        }
+        task.resume()
+    }
+    
+    func deleteCommentaire(reponse : Commentaire, createur : Utilisateur) {
+        let url = URL(string : self.url + "commentaires/delete-commentaire")
+        guard let requestUrl = url else { fatalError() }
+        
+        var request = URLRequest(url: requestUrl)
+        request.httpMethod = "DELETE"
+        let postString = "commentaireId=\(reponse.idC)"
+        request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        request.setValue(createur.token, forHTTPHeaderField: "auth-token")
+        request.httpBody = postString.data(using: String.Encoding.utf8)
+        let task = session.dataTask(with: request) { (data, response, error) in
+            if error != nil || data == nil {
+                print("Erreur côté client")
+                return
+            }
+            print("Code de réponse http : \((response as! HTTPURLResponse).statusCode)")
+            // Vérifie le code HTTP de réponse du serveur
+            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+                print("Erreur du serveur")
+                return
+            }
+            // Vérifie que le format des données du serveur en réponse est bien du JSON
+            guard let mime = response.mimeType, mime == "application/json" else {
+                print("Wrong MIME type!")
+                return
+            }
+            do {
+                let json = try JSON(data: data!)
+                print(json)
+            }
+            catch {
+                print("JSON error: \(error.localizedDescription)")
+            }
+        }
+        task.resume()
+    }
     
 }
 
@@ -475,34 +587,44 @@ extension WebService {
         let unPropos : Propos = Propos(contenu: contenu, categorie: categorie, createur: createur, likes: likes, reponses: reponses, commentaires: commentaires, idC : id)
         
         for rep in propos["reponses"].arrayValue {
-            if let reponse = decodeReponse(propos: unPropos, createur: createur, rep: rep) {
+            if let reponse = decodeReponse(propos: unPropos, rep: rep) {
                 unPropos.reponses.append(reponse)
             }
         }
         
         for com in propos["commentaires"].arrayValue {
-            if let commentaire = (decodeCommentaire(propos: unPropos, createur: createur, com: com)) {
+            if let commentaire = (decodeCommentaire(propos: unPropos, com: com)) {
                 unPropos.commentaires.append(commentaire)
             }
         }
         return unPropos
     }
     
-    func decodeReponse(propos: Propos, createur: Utilisateur?, rep: JSON) -> Reponse? {
+    func decodeReponse(propos: Propos, rep: JSON) -> Reponse? {
         guard let contenu = rep["contenu"].string, let categorie = rep["categorie"]["contenu"].string, let likes = rep["likes"].int, let dislikes = rep["dislikes"].int, let idr = rep["_id"].string else {
             print("Erreur dans la structure du JSON")
             return nil
+        }
+        // nil si le propos a été créé anonyment, ajout de l'utilisateur sinon
+        var createur : Utilisateur? = nil
+        if (rep["creator"]).exists() {
+            createur = Utilisateur(pseudo: rep["creator"]["pseudo"].string!, email: rep["creator"]["email"].string!, password: "")
         }
         // Création de la réponse et ajout à la liste des réponses du propos précédemment créé
         // TODO récupérér catégorie rep["categorie"]["contenu"] -> trouver comment populate dans le serveur
         return Reponse(contenu: contenu, categorie: categorie, createur: createur, propos: propos, likes: likes, dislikes: dislikes, idC : idr)
     }
     
-    func decodeCommentaire(propos: Propos, createur: Utilisateur?, com: JSON) -> Commentaire? {
+    func decodeCommentaire(propos: Propos, com: JSON) -> Commentaire? {
         // Récupération des données d'un commentaire
         guard let contenu = com["contenu"].string, let likes = com["likes"].int, let dislikes = com["dislikes"].int, let idc = com["_id"].string else {
             print("Erreur dans la structure du JSON")
             return nil
+        }
+        // nil si le propos a été créé anonyment, ajout de l'utilisateur sinon
+        var createur : Utilisateur? = nil
+        if (com["creator"]).exists() {
+            createur = Utilisateur(pseudo: com["creator"]["pseudo"].string!, email: com["creator"]["email"].string!, password: "")
         }
         // Création du commentaire et ajout à la liste des commentaires du propos précédemment créé
         return Commentaire(contenu: contenu, createur: createur, propos: propos, likes: likes, dislikes: dislikes, idC : idc)

@@ -10,8 +10,8 @@ import Foundation
 
 class ProposDetailViewModel : ObservableObject {
     
-    func addCommentToPropos(commentaire : String, propos : Propos) {
-        WebService().addCommentToPropos(propos: propos, commentaire: commentaire)
+    func addCommentToPropos(commentaire : String, propos : Propos, createur: Utilisateur?) {
+        WebService().addCommentToPropos(propos: propos, commentaire: commentaire, createur: createur)
     }
 
     func addReponseToPropos(contenu : String, categorie : String, propos : Propos, createur : Utilisateur?) {

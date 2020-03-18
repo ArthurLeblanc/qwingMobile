@@ -13,12 +13,25 @@ struct ProposRow: View {
     @State var liked: Bool
     var session : Utilisateur?
     @State private var showingAlert = false
+    @State private var showingAlert2 = false
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("proposé par - \(propos.createur?.pseudo ?? "Anonyme")")
-                .font(.caption)
-                .padding([.top, .leading])
+            HStack {
+                Text("proposé par - \(propos.createur?.pseudo ?? "Anonyme")")
+                    .font(.caption)
+                    .padding([.top, .leading])
+                Spacer()
+                if (self.session != nil && self.session?.email == propos.createur?.email) {
+                    Image(systemName: "hand.thumbsup").padding(.bottom).onTapGesture {
+                        WebService().deletePropos(propos: self.propos, createur: self.session!)
+                        self.showingAlert2.toggle()
+                    }.alert(isPresented: $showingAlert2) {
+                        Alert(title: Text("Information"), message: Text("Propos supprimé"), dismissButton: .default(Text("Ok")))
+                    }.padding([.top, .trailing])
+                }
+            }
+            
             Text(self.propos.contenu)
                 .font(.headline)
                 .padding(.all)
