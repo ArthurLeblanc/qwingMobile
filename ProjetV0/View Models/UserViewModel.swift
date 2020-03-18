@@ -15,8 +15,20 @@ class UserViewModel : ObservableObject {
         self.loggedUser = WebService().login(email : email, password : password)
     }
     
+    init() {
+        
+    }
+    
     init(email : String, pseudo : String, password : String) {
         self.loggedUser = WebService().signup(email: email, pseudo: pseudo, password: password)
+    }
+    
+    func updateAccount(email : String, pseudo : String, password : String) {
+        WebService().updateAccount(email: email, pseudo: pseudo, password: password)
+    }
+    
+    func deleteAccount(email : String) {
+        WebService().deleteAccount(email: email)
     }
     
 }

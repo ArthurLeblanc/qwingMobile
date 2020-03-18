@@ -240,6 +240,80 @@ class WebService : ObservableObject {
         return getUserInfosFromToken(token: token)
     }
     
+    func updateAccount(email : String, pseudo : String, password : String) {
+        let url = URL(string : self.url + "users/edit-infos")
+        guard let requestUrl = url else { fatalError() }
+        var request = URLRequest(url: requestUrl)
+        request.httpMethod = "PUT"
+        let putString = "email=\(email)&pseudo=\(pseudo)&password=\(password)"
+        request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        request.httpBody = putString.data(using: String.Encoding.utf8)
+        session.dataTask(with: request) { (data, response, error) in
+             
+             if error != nil || data == nil {
+                 print("Erreur côté client")
+                 return
+             }
+             print("Code de réponse http : \((response as! HTTPURLResponse).statusCode)")
+             // Vérifie le code HTTP de réponse du serveur
+             guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+                 print("Erreur du serveur")
+                 return
+             }
+             // Vérifie que le format des données du serveur en réponse est bien du JSON
+             guard let mime = response.mimeType, mime == "application/json" else {
+                 print("Wrong MIME type!")
+                 return
+             }
+             do {
+                 let json = try JSON(data: data!)
+                 print("json : \(json)")
+                 
+             }
+             catch {
+                 print("JSON error: \(error.localizedDescription)")
+             }
+             
+             
+         }.resume()
+    }
+    
+    func deleteAccount(email : String) {
+        let url = URL(string : self.url + "users/delete-account")
+        guard let requestUrl = url else { fatalError() }
+        var request = URLRequest(url: requestUrl)
+        request.httpMethod = "DELETE"
+        let deleteString = "email=\(email)"
+        request.httpBody = deleteString.data(using: String.Encoding.utf8)
+        session.dataTask(with: request) { (data, response, error) in
+            if error != nil || data == nil {
+                    print("Erreur côté client")
+                    return
+                }
+                print("Code de réponse http : \((response as! HTTPURLResponse).statusCode)")
+                // Vérifie le code HTTP de réponse du serveur
+                guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+                    print("Erreur du serveur")
+                    return
+                }
+                // Vérifie que le format des données du serveur en réponse est bien du JSON
+                guard let mime = response.mimeType, mime == "application/json" else {
+                    print("Wrong MIME type!")
+                    return
+                }
+                do {
+                    let json = try JSON(data: data!)
+                    print("json : \(json)")
+                    
+                }
+                catch {
+                    print("JSON error: \(error.localizedDescription)")
+                }
+                
+                
+            }.resume()
+    }
+    
     func likePropos(propos: Propos, utilisateur: Utilisateur) {
         let url = URL(string : self.url + "propos/like-propos")
         guard let requestUrl = url else { fatalError() }

@@ -9,6 +9,11 @@
 import SwiftUI
 import Foundation
 
+enum ActiveAlert {
+    case first, second, third
+}
+
+
 struct MonCompte: View {
     
     @State var session : Utilisateur
@@ -20,6 +25,9 @@ struct MonCompte: View {
     @State var confirmpassword : String = ""
     
     @State var email : String = ""
+    @State var showAlert: Bool = false
+    @State var activeAlert: ActiveAlert = .first
+    
     
     var body: some View {
         NavigationView {
@@ -37,6 +45,7 @@ struct MonCompte: View {
                 TextField("Adresse email : ", text : $email)                    .onAppear {
                     self.email = self.session.email
                 }
+                .disabled(true)
                 .padding()
                 .background(lightGreyColor)
                 .cornerRadius(5.0)
@@ -63,12 +72,35 @@ struct MonCompte: View {
                     .cornerRadius(5.0)
                     .padding(.bottom, 20)
                 Spacer()
+                /*NavigationLink(destination : Accueil(session: nil)){
+                    Button(action: {
+                        UserViewModel().deleteAccount(email: self.email)
+                    }) {
+                        Text("Supprimer mon compte").foregroundColor(Color.red)
+                    }
+                }*/
                 NavigationLink(destination : Accueil(session: self.session)) {
                     Button(action: {
-                        self.session = Utilisateur(pseudo: self.pseudo, email: self.email, password: self.password)
-                        print(self.session)
-                        self.presentationMode.wrappedValue.dismiss()
-                        
+                        if self.password != self.confirmpassword {
+                            self.showAlert.toggle()
+                            self.activeAlert = .first
+                        }
+                        else if self.password.count < 6 {
+                            self.showAlert.toggle()
+                            self.activeAlert = .second
+                            
+                        }
+                        else if self.pseudo.count == 0 {
+                            self.showAlert.toggle()
+                            self.activeAlert = .third
+                        }
+                        else {
+                            self.session.pseudo = self.pseudo
+                            self.session.email =  self.email
+                            self.session.password = self.password
+                            UserViewModel().updateAccount(email : self.email, pseudo : self.pseudo, password : self.password)
+                            self.presentationMode.wrappedValue.dismiss()
+                        }
                     }) {
                         Text("Modifier")
                             .font(.headline)
@@ -77,9 +109,22 @@ struct MonCompte: View {
                             .frame(width: 220, height: 60)
                             .background(Color.blue)
                             .cornerRadius(15.0)
+                    }.alert(isPresented: $showAlert) {
+                        switch activeAlert {
+                        case .first:
+                            return Alert(title: Text("Information"), message: Text("Le mot de passe ne coïncide pas avec la confirmation !"), dismissButton: .default(Text("J'ai compris !")))
+                        case .second:
+                            return Alert(title: Text("Information"), message: Text("Votre mot de passe doit faire au moins 6 caractères !"), dismissButton: .default(Text("J'ai compris !")))
+                        case .third :
+                            return Alert(title: Text("Information"), message: Text("Votre pseudo ne peut pas être vide !"),
+                                         dismissButton: .default(Text("J'ai compris !")))
+                        }
                     }
                 }
-            }.padding(.horizontal, 30.0)
+                
+            }
+            .padding(.horizontal, 30.0)
+            
         }
     }
 }
