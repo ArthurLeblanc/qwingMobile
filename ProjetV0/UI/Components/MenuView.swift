@@ -86,7 +86,9 @@ struct MenuView: View {
                 Row(rowActive: false, icon: "rectangle.grid.1x2", text: "Mes propos")
             }
             Row(rowActive: false, icon: "plus.circle", text: "Mes réponses")
-            Row(rowActive: false, icon: "heart", text: "Mes propos entendus")
+            NavigationLink(destination: ProposLiked(session: self.session)) {
+                Row(rowActive: false, icon: "heart", text: "Mes propos entendus")
+            }
             
             Spacer()
             if (self.session != nil) {
