@@ -23,7 +23,7 @@ struct ReponseRow: View {
                     .padding([.top, .leading])
                 Spacer()
                 if (self.session != nil && self.session?.email == reponse.createur?.email) {
-                    Image(systemName: "hand.thumbsup").padding(.bottom).onTapGesture {
+                    Image(systemName: "trash").padding(.bottom).onTapGesture {
                         WebService().deleteReponse(reponse: self.reponse, createur: self.session!)
                         self.showingAlert.toggle()
                     }.alert(isPresented: $showingAlert) {
