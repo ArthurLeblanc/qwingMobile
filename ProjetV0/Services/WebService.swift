@@ -602,7 +602,7 @@ class WebService : ObservableObject {
         request.httpMethod = "POST"
         let semaphore = DispatchSemaphore(value : 0)
         let postString = "contenu=\(contenu)&categorie=\(categorie)"
-        if let user = createur {	
+        if let user = createur {
             request.setValue(user.token, forHTTPHeaderField: "auth-token")
         }
         request.httpBody = postString.data(using: String.Encoding.utf8)
@@ -630,7 +630,7 @@ class WebService : ObservableObject {
                            print("Erreur dans la structure du JSON")
                            return
                        }
-                propos = Propos(contenu: contenu, categorie: categorie, createur: createur, likes: 0, reponses: [], commentaires: [], idC: id)
+                propos = Propos(contenu: contenu, categorie: categorie, createur: createur, likes: 0, reponses: [], commentaires: [], idC: id,date:  Date.dateToString(date: Date()))
             }
             catch {
                 print("JSON error: \(error.localizedDescription)")
