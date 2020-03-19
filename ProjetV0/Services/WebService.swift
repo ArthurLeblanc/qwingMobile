@@ -594,12 +594,13 @@ class WebService : ObservableObject {
         task.resume()
     }
     
-    func addPropos(contenu : String, categorie : String, createur : Utilisateur?) {
+    func addPropos(contenu : String, categorie : String, createur : Utilisateur?) -> Propos {
         let url = URL(string : self.url + "propos/create-propos")
         guard let requestUrl = url else { fatalError() }
-        
+        var propos : Propos? = nil
         var request = URLRequest(url: requestUrl)
         request.httpMethod = "POST"
+        let semaphore = DispatchSemaphore(value : 0)
         let postString = "contenu=\(contenu)&categorie=\(categorie)"
         if let user = createur {	
             request.setValue(user.token, forHTTPHeaderField: "auth-token")
@@ -625,14 +626,22 @@ class WebService : ObservableObject {
             do {
                 let json = try JSON(data: data!)
                 print(json)
+                guard let contenu = json["contenu"].string, let categorie = json["categorie"]["contenu"].string, let id = json["_id"].string else {
+                           print("Erreur dans la structure du JSON")
+                           return
+                       }
+                propos = Propos(contenu: contenu, categorie: categorie, createur: createur, likes: 0, reponses: [], commentaires: [], idC: id)
             }
             catch {
                 print("JSON error: \(error.localizedDescription)")
             }
+            semaphore.signal()
             
             
         }
         task.resume()
+        semaphore.wait()
+        return propos!
     }
     
     func addReponseToPropos(propos : Propos, contenu : String, categorie : String, createur : Utilisateur?) {

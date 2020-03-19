@@ -62,7 +62,7 @@ struct CommentRow: View {
                     nomCreateur()
                     Spacer()
                     if (self.session != nil && self.session?.email == commentaire.createur?.email) {
-                        Image(systemName: "hand.thumbsup").padding(.bottom).onTapGesture {
+                        Image(systemName: "trash").padding(.bottom).onTapGesture {
                             WebService().deleteCommentaire(reponse: self.commentaire, createur: self.session!)
                             self.showingAlert.toggle()
                         }.alert(isPresented: $showingAlert) {
