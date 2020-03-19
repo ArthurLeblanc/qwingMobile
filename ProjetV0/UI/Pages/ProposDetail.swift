@@ -53,7 +53,7 @@ struct ProposDetail: View {
                     Button(action: {
                         self.proposDetailViewModel.addCommentToPropos(commentaire: self.commentaire, propos: self.contenu, createur: self.session)
                         self.contenu.commentaires.append(
-                            Commentaire(contenu: self.commentaire, createur: self.session, propos: self.contenu, likes: 0, dislikes: 0, idC: ""))
+                            Commentaire(contenu: self.commentaire, createur: self.session, propos: self.contenu, likes: 0, dislikes: 0, idC: "", date: Date.dateToString(date: Date())))
                         
                     }) {
                         Text("Ajouter le commentaire")
@@ -85,7 +85,7 @@ struct ProposDetail: View {
                     Button(action: {
                         self.proposDetailViewModel.addReponseToPropos(contenu: self.contenuR, categorie: self.picker.categories[self.picker.selection], propos: self.contenu, createur: self.session)
                         self.contenu.reponses.append(
-                            Reponse(contenu : self.contenuR, categorie : self.categorieR, createur : self.session, propos: self.contenu, likes: 0, dislikes: 0, idC: "")
+                            Reponse(contenu : self.contenuR, categorie : self.categorieR, createur : self.session, propos: self.contenu, likes: 0, dislikes: 0, idC: "", date: Date.dateToString(date: Date()))
                          )
                     }) {
                         Text("Ajouter la reponse")

@@ -804,7 +804,7 @@ extension WebService {
         let reponses = [Reponse]()
         let commentaires = [Commentaire]()
         // Récupération des données d'un propos
-        guard let contenu = propos["contenu"].string, let categorie = propos["categorie"]["contenu"].string, let likes = propos["likes"].int, let id = propos["_id"].string else {
+        guard let contenu = propos["contenu"].string, let categorie = propos["categorie"]["contenu"].string, let likes = propos["likes"].int, let id = propos["_id"].string, let datePropos = propos["created_at"].string else {
             print("Erreur dans la structure du JSON")
             return nil
         }
@@ -813,8 +813,12 @@ extension WebService {
         if (propos["creator"]).exists() {
             createur = Utilisateur(pseudo: propos["creator"]["pseudo"].string!, email: propos["creator"]["email"].string!, password: "")
         }
+        let date = datePropos.dateJSONToString()
         // Création du propos
-        let unPropos : Propos = Propos(contenu: contenu, categorie: categorie, createur: createur, likes: likes, reponses: reponses, commentaires: commentaires, idC : id)
+        let unPropos : Propos = Propos(contenu: contenu, categorie: categorie, createur: createur, likes: likes, reponses: reponses, commentaires: commentaires, idC : id, date: date)
+
+
+        
         
         for rep in propos["reponses"].arrayValue {
             if let reponse = decodeReponse(propos: unPropos, rep: rep) {
@@ -831,7 +835,7 @@ extension WebService {
     }
     
     func decodeReponse(propos: Propos, rep: JSON) -> Reponse? {
-        guard let contenu = rep["contenu"].string, let categorie = rep["categorie"]["contenu"].string, let likes = rep["likes"].int, let dislikes = rep["dislikes"].int, let idr = rep["_id"].string else {
+        guard let contenu = rep["contenu"].string, let categorie = rep["categorie"]["contenu"].string, let likes = rep["likes"].int, let dislikes = rep["dislikes"].int, let idr = rep["_id"].string, let dateReponse = rep["created_at"].string else {
             print("Erreur dans la structure du JSON")
             return nil
         }
@@ -840,23 +844,50 @@ extension WebService {
         if (rep["creator"]).exists() {
             createur = Utilisateur(pseudo: rep["creator"]["pseudo"].string!, email: rep["creator"]["email"].string!, password: "")
         }
+        let date = dateReponse.dateJSONToString()
         // Création de la réponse et ajout à la liste des réponses du propos précédemment créé
-        // TODO récupérér catégorie rep["categorie"]["contenu"] -> trouver comment populate dans le serveur
-        return Reponse(contenu: contenu, categorie: categorie, createur: createur, propos: propos, likes: likes, dislikes: dislikes, idC : idr)
+        return Reponse(contenu: contenu, categorie: categorie, createur: createur, propos: propos, likes: likes, dislikes: dislikes, idC : idr, date: date)
     }
     
     func decodeCommentaire(propos: Propos, com: JSON) -> Commentaire? {
         // Récupération des données d'un commentaire
-        guard let contenu = com["contenu"].string, let likes = com["likes"].int, let dislikes = com["dislikes"].int, let idc = com["_id"].string else {
+        guard let contenu = com["contenu"].string, let likes = com["likes"].int, let dislikes = com["dislikes"].int, let idc = com["_id"].string, let dateCommentaire = com["created_at"].string else {
             print("Erreur dans la structure du JSON")
             return nil
         }
         // nil si le propos a été créé anonyment, ajout de l'utilisateur sinon
         var createur : Utilisateur? = nil
+        print(com)
         if (com["creator"]).exists() {
             createur = Utilisateur(pseudo: com["creator"]["pseudo"].string!, email: com["creator"]["email"].string!, password: "")
         }
+        let date = dateCommentaire.dateJSONToString()
         // Création du commentaire et ajout à la liste des commentaires du propos précédemment créé
-        return Commentaire(contenu: contenu, createur: createur, propos: propos, likes: likes, dislikes: dislikes, idC : idc)
+        return Commentaire(contenu: contenu, createur: createur, propos: propos, likes: likes, dislikes: dislikes, idC : idc, date: date)
+    }
+}
+
+extension String {
+    func dateJSONToString() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
+        formatter.calendar = Calendar(identifier: .iso8601)
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        let formatter2 = DateFormatter()
+        formatter2.dateFormat = "dd/MM/yyyy"
+        
+        let date1 = formatter.date(from: self)
+        let date2 = formatter2.string(from: date1!)
+        return date2
+    }
+}
+
+extension Date {
+    static func dateToString(date : Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yyyy"
+        let date = formatter.string(from: date)
+        return date
     }
 }

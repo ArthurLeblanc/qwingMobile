@@ -19,9 +19,12 @@ struct ProposRow: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Text("proposé par - \(propos.createur?.pseudo ?? "Anonyme")")
+                Text("proposé par - \(propos.createur?.pseudo ?? "Anonyme") - ")
                     .font(.caption)
                     .padding([.top, .leading])
+                Text("\(propos.categorie)")
+                    .font(.caption).bold()
+                    .padding(.top)
                 Spacer()
                 if (self.session != nil && self.session?.email == propos.createur?.email) {
                     Image(systemName: "trash").foregroundColor(Color.red).padding(.bottom).onTapGesture {
@@ -35,13 +38,12 @@ struct ProposRow: View {
                     }.padding([.top, .trailing])
                 }
             }
-            
             Text(self.propos.contenu)
                 .font(.headline)
                 .padding(.all)
                 .frame(height: 75.0)
             HStack {
-                //Text("Voir les réponses >").font(.caption).padding([.leading, .bottom])
+                Text("Créé le : \(propos.date)").font(.caption).padding([.leading, .bottom])
                 Spacer()
                 if (self.session == nil) {
                     Image(systemName: "hand.thumbsup").padding(.bottom).onTapGesture {

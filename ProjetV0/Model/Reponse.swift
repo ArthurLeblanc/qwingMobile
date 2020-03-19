@@ -10,13 +10,13 @@ import Foundation
 
 class Reponse : Contenu {
     
-    public init(contenu: String, categorie : String, createur : Utilisateur?, propos: Propos, likes: Int?, dislikes: Int?, idC : String) {
+    public init(contenu: String, categorie : String, createur : Utilisateur?, propos: Propos, likes: Int?, dislikes: Int?, idC : String, date: String) {
         self.propos = propos
         self.categorie = categorie
         if let a = dislikes  {
             self.dislikes = a
         }
-        super.init(contenu : contenu, createur: createur, likes: likes, idC : idC)
+        super.init(contenu : contenu, createur: createur, likes: likes, idC : idC, date: date)
     }
     
     @Published var categorie : String = ""

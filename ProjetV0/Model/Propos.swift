@@ -10,8 +10,8 @@ import Foundation
 
 class Propos : Contenu {
  
-    public init(contenu: String, categorie : String, createur : Utilisateur?, likes: Int?, reponses: [Reponse]?, commentaires: [Commentaire]?, idC : String) {
-        super.init(contenu : contenu, createur : createur, likes: likes, idC : idC)
+    public init(contenu: String, categorie : String, createur : Utilisateur?, likes: Int?, reponses: [Reponse]?, commentaires: [Commentaire]?, idC : String, date: String) {
+        super.init(contenu : contenu, createur : createur, likes: likes, idC : idC, date: date)
         self.categorie = categorie
         self.reponses = reponses ?? []
         self.commentaires = commentaires ?? []

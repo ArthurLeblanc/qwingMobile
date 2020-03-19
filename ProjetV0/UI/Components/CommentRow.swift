@@ -75,7 +75,7 @@ struct CommentRow: View {
                     .foregroundColor(.white)
                     .fixedSize(horizontal: false, vertical: true)
                 HStack {
-                    Text(commentaire.date.getElapsedInterval())
+                    Text(commentaire.date)
                         .foregroundColor(.white)
                         .italic()
                         .opacity(0.5)
