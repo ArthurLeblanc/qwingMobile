@@ -30,7 +30,7 @@ struct ProposUser: View {
             List {
                 ForEach (self.proposList) {
                     p in
-                    NavigationLink(destination : ProposDetail(contenu : p, utilisateur: self.session)) {
+                    NavigationLink(destination : ProposDetail(session: self.session, contenu : p)) {
                         ProposRow(propos: p, liked: p.isLiked(user: self.session), session: self.session)
                     }
                 }

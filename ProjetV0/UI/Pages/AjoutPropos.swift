@@ -17,6 +17,7 @@ struct AjoutPropos: View {
     @State var jaimePas : Int = 0
     @Environment(\.presentationMode) var presentationMode
     @State var picker : PickerView = PickerView(categories : ["Dans la rue", "Dans les transports", "Au travail", "Autre"])
+    @EnvironmentObject var proposListe : ProposListeViewModel
     
     /*
      init(utilisateur : Utilisateur, liste : UtilisateurListe, propos : Binding<[Propos]>){
@@ -38,6 +39,7 @@ struct AjoutPropos: View {
             NavigationLink(destination : Accueil()) {
                 Button(action: {
                     ProposListeViewModel().addPropos(contenu: self.contenu, categorie: self.picker.categories[self.picker.selection], createur: self.session)
+                    self.proposListe.proposListe.append(Propos(contenu: self.contenu, categorie: self.categorie, createur: self.session, likes: 0, reponses: [Reponse](), commentaires: [Commentaire](), idC: ""))
                     self.presentationMode.wrappedValue.dismiss()
                 }) {
                     Text("Ajouter")

@@ -14,6 +14,7 @@ struct ProposRow: View {
     var session : Utilisateur?
     @State private var showingAlert = false
     @State private var showingAlert2 = false
+    @EnvironmentObject var proposListe : ProposListeViewModel
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -25,6 +26,9 @@ struct ProposRow: View {
                 if (self.session != nil && self.session?.email == propos.createur?.email) {
                     Image(systemName: "trash").foregroundColor(Color.red).padding(.bottom).onTapGesture {
                         WebService().deletePropos(propos: self.propos, createur: self.session!)
+                        if let index = self.proposListe.proposListe.firstIndex(where: {$0.idC == self.propos.idC}) {
+                            self.proposListe.proposListe.remove(at: index)
+                        }
                         self.showingAlert2.toggle()
                     }.alert(isPresented: $showingAlert2) {
                         Alert(title: Text("Information"), message: Text("Propos supprimé"), dismissButton: .default(Text("Ok")))

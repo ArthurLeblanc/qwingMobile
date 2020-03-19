@@ -51,7 +51,7 @@ struct MenuView: View {
                     
                 }
                 if (self.session != nil) {
-                    NavigationLink(destination: MonCompte(session: self.session!)) {
+                    NavigationLink(destination: MonCompte(session: self.$session)) {
                         Image(systemName: "pencil")
                             .foregroundColor(.white)
                             .font(.system(size: 24, weight: .heavy))

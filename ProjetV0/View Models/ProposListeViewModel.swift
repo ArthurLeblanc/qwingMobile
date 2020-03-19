@@ -16,7 +16,6 @@ class ProposListeViewModel : ObservableObject {
         WebService().getPropos { propos in
             if let propos = propos {
                 self.proposListe = propos
-                
             }
             
         }
@@ -26,9 +25,7 @@ class ProposListeViewModel : ObservableObject {
         WebService().getPropos { propos in
             if let propos = propos {
                 self.proposListe = propos
-                
             }
-            
         }
     }
     

@@ -205,17 +205,38 @@ class WebService : ObservableObject {
                     }
                 }
                 
-                /*
-                 for rep in json["likesReponses"].arrayValue {
-                 if let unPropos = self.decodePropos(propos: propos) {
-                 loggedUser!.proposLikes.append(unPropos)
-                 }
-                 }
-                 
-                 // Création des commentaires associés au propos
-                 for com in json["likesCommentaires"].arrayValue {
-                 
-                 } */
+                
+                for rep in json["likesReponses"].arrayValue {
+                    if let unPropos = self.decodePropos(propos: rep["propos"]) {
+                        if let uneRep = self.decodeReponse(propos: unPropos, rep: rep) {
+                            loggedUser!.reponsesLikes.append(uneRep)
+                        }
+                    }
+                }
+                
+                for rep in json["dislikesReponses"].arrayValue {
+                    if let unPropos = self.decodePropos(propos: rep["propos"]) {
+                        if let uneRep = self.decodeReponse(propos: unPropos, rep: rep) {
+                            loggedUser!.reponsesDislikes.append(uneRep)
+                        }
+                    }
+                }
+                
+                for com in json["likesCommentaires"].arrayValue {
+                    if let unPropos = self.decodePropos(propos: com["propos"]) {
+                        if let unCom = self.decodeCommentaire(propos: unPropos, com: com) {
+                            loggedUser!.commentairesLikes.append(unCom)
+                        }
+                    }
+                }
+                
+                for com in json["dislikesCommentaires"].arrayValue {
+                    if let unPropos = self.decodePropos(propos: com["propos"]) {
+                        if let unCom = self.decodeCommentaire(propos: unPropos, com: com) {
+                            loggedUser!.commentairesDislikes.append(unCom)
+                        }
+                    }
+                }
                 
                 semaphore.signal()
                 print(loggedUser!.pseudo)
@@ -297,33 +318,33 @@ class WebService : ObservableObject {
         request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
         request.httpBody = putString.data(using: String.Encoding.utf8)
         session.dataTask(with: request) { (data, response, error) in
-             
-             if error != nil || data == nil {
-                 print("Erreur côté client")
-                 return
-             }
-             print("Code de réponse http : \((response as! HTTPURLResponse).statusCode)")
-             // Vérifie le code HTTP de réponse du serveur
-             guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
-                 print("Erreur du serveur")
-                 return
-             }
-             // Vérifie que le format des données du serveur en réponse est bien du JSON
-             guard let mime = response.mimeType, mime == "application/json" else {
-                 print("Wrong MIME type!")
-                 return
-             }
-             do {
-                 let json = try JSON(data: data!)
-                 print("json : \(json)")
-                 
-             }
-             catch {
-                 print("JSON error: \(error.localizedDescription)")
-             }
-             
-             
-         }.resume()
+            
+            if error != nil || data == nil {
+                print("Erreur côté client")
+                return
+            }
+            print("Code de réponse http : \((response as! HTTPURLResponse).statusCode)")
+            // Vérifie le code HTTP de réponse du serveur
+            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+                print("Erreur du serveur")
+                return
+            }
+            // Vérifie que le format des données du serveur en réponse est bien du JSON
+            guard let mime = response.mimeType, mime == "application/json" else {
+                print("Wrong MIME type!")
+                return
+            }
+            do {
+                let json = try JSON(data: data!)
+                print("json : \(json)")
+                
+            }
+            catch {
+                print("JSON error: \(error.localizedDescription)")
+            }
+            
+            
+        }.resume()
     }
     
     func deleteAccount(email : String) {
@@ -335,31 +356,31 @@ class WebService : ObservableObject {
         request.httpBody = deleteString.data(using: String.Encoding.utf8)
         session.dataTask(with: request) { (data, response, error) in
             if error != nil || data == nil {
-                    print("Erreur côté client")
-                    return
-                }
-                print("Code de réponse http : \((response as! HTTPURLResponse).statusCode)")
-                // Vérifie le code HTTP de réponse du serveur
-                guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
-                    print("Erreur du serveur")
-                    return
-                }
-                // Vérifie que le format des données du serveur en réponse est bien du JSON
-                guard let mime = response.mimeType, mime == "application/json" else {
-                    print("Wrong MIME type!")
-                    return
-                }
-                do {
-                    let json = try JSON(data: data!)
-                    print("json : \(json)")
-                    
-                }
-                catch {
-                    print("JSON error: \(error.localizedDescription)")
-                }
+                print("Erreur côté client")
+                return
+            }
+            print("Code de réponse http : \((response as! HTTPURLResponse).statusCode)")
+            // Vérifie le code HTTP de réponse du serveur
+            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+                print("Erreur du serveur")
+                return
+            }
+            // Vérifie que le format des données du serveur en réponse est bien du JSON
+            guard let mime = response.mimeType, mime == "application/json" else {
+                print("Wrong MIME type!")
+                return
+            }
+            do {
+                let json = try JSON(data: data!)
+                print("json : \(json)")
                 
-                
-            }.resume()
+            }
+            catch {
+                print("JSON error: \(error.localizedDescription)")
+            }
+            
+            
+        }.resume()
     }
     
     func likePropos(propos: Propos, utilisateur: Utilisateur) {
@@ -442,6 +463,93 @@ class WebService : ObservableObject {
         }.resume()
     }
     
+    func actionReponse(reponse: Reponse, utilisateur: Utilisateur, action: String) {
+        let url = URL(string : self.url + "reponses/" + action)
+        guard let requestUrl = url else { fatalError() }
+        
+        var request = URLRequest(url: requestUrl)
+        if action.hasPrefix("un") {
+            request.httpMethod = "DELETE"
+        } else {
+            request.httpMethod = "PUT"
+        }
+        let putString = "reponseId=\(reponse.idC)"
+        request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        request.setValue(utilisateur.token, forHTTPHeaderField: "auth-token")
+        request.httpBody = putString.data(using: String.Encoding.utf8)
+        session.dataTask(with: request) { (data, response, error) in
+            
+            if error != nil || data == nil {
+                print("Erreur côté client")
+                return
+            }
+            print("Code de réponse http : \((response as! HTTPURLResponse).statusCode)")
+            // Vérifie le code HTTP de réponse du serveur
+            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+                print("Erreur du serveur")
+                return
+            }
+            // Vérifie que le format des données du serveur en réponse est bien du JSON
+            guard let mime = response.mimeType, mime == "application/json" else {
+                print("Wrong MIME type!")
+                return
+            }
+            do {
+                let json = try JSON(data: data!)
+                print("json : \(json)")
+                
+            }
+            catch {
+                print("JSON error: \(error.localizedDescription)")
+            }
+            
+            
+        }.resume()
+    }
+    
+    func actionCommentaire(commentaire: Commentaire, utilisateur: Utilisateur, action: String) {
+        let url = URL(string : self.url + "commentaires/" + action)
+        guard let requestUrl = url else { fatalError() }
+        
+        var request = URLRequest(url: requestUrl)
+        if action.hasPrefix("un") {
+            request.httpMethod = "DELETE"
+        } else {
+            request.httpMethod = "PUT"
+        }
+        let putString = "commentaireId=\(commentaire.idC)"
+        request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        request.setValue(utilisateur.token, forHTTPHeaderField: "auth-token")
+        request.httpBody = putString.data(using: String.Encoding.utf8)
+        session.dataTask(with: request) { (data, response, error) in
+            
+            if error != nil || data == nil {
+                print("Erreur côté client")
+                return
+            }
+            print("Code de réponse http : \((response as! HTTPURLResponse).statusCode)")
+            // Vérifie le code HTTP de réponse du serveur
+            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+                print("Erreur du serveur")
+                return
+            }
+            // Vérifie que le format des données du serveur en réponse est bien du JSON
+            guard let mime = response.mimeType, mime == "application/json" else {
+                print("Wrong MIME type!")
+                return
+            }
+            do {
+                let json = try JSON(data: data!)
+                print("json : \(json)")
+                
+            }
+            catch {
+                print("JSON error: \(error.localizedDescription)")
+            }
+            
+            
+        }.resume()
+    }
     
     func addCommentToPropos(propos : Propos, commentaire : String, createur : Utilisateur?) {
         print("id du propos : " + propos.idC)

@@ -10,7 +10,7 @@ import SwiftUI
 
 struct Accueil: View {
     
-    @ObservedObject var proposListe = ProposListeViewModel.singleton
+    @EnvironmentObject var proposListe : ProposListeViewModel
     @State var session : Utilisateur?
     @State var showMenu = false
     @Environment(\.presentationMode) var presentationMode
@@ -65,7 +65,7 @@ struct Accueil: View {
                             List {
                                 ForEach (self.proposListe.proposListe) {
                                     p in
-                                    NavigationLink(destination : ProposDetail(contenu : p, utilisateur: self.session)) {
+                                    NavigationLink(destination : ProposDetail(session: self.session, contenu: p)) {
                                         ProposRow(propos: p, liked: p.isLiked(user: self.session), session: self.session)
                                     }
                                 }

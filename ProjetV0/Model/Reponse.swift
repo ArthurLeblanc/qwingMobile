@@ -23,4 +23,18 @@ class Reponse : Contenu {
     @Published var dislikes : Int = 0
     @Published var propos : Propos
     
+    static func isLiked(rep: Reponse, user: Utilisateur?) -> Bool {
+        if (user != nil) {
+            return (user!.reponsesLikes.firstIndex{$0.idC == rep.idC} != nil)
+        }
+        return false
+    }
+    
+    static func isDisliked(rep: Reponse, user: Utilisateur?) -> Bool {
+        if (user != nil) {
+            return (user!.reponsesDislikes.firstIndex{$0.idC == rep.idC} != nil)
+        }
+        return false
+    }
+    
 }

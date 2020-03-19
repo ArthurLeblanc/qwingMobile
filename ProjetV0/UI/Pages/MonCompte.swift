@@ -16,7 +16,7 @@ enum ActiveAlert {
 
 struct MonCompte: View {
     
-    @State var session : Utilisateur
+    @Binding var session : Utilisateur?
     //Pour faire un retour une fois qu'on a appuyé sur un bouton
     @Environment(\.presentationMode) var presentationMode
     
@@ -43,7 +43,7 @@ struct MonCompte: View {
                     .padding(.bottom, 20)
                 Spacer()
                 TextField("Adresse email : ", text : $email)                    .onAppear {
-                    self.email = self.session.email
+                    self.email = self.session!.email
                 }
                 .disabled(true)
                 .padding()
@@ -52,7 +52,7 @@ struct MonCompte: View {
                 .padding(.bottom, 20)
                 TextField("Pseudo : ", text: $pseudo)
                     .onAppear {
-                        self.pseudo = self.session.pseudo
+                        self.pseudo = self.session!.pseudo
                 }
                 .padding()
                 .background(lightGreyColor)
@@ -60,7 +60,7 @@ struct MonCompte: View {
                 .padding(.bottom, 20)
                 SecureField("Mot de passe: ", text : $password)
                     .onAppear {
-                        self.password = self.session.password
+                        self.password = self.session!.password
                 }
                 .padding()
                 .background(lightGreyColor)
@@ -95,9 +95,9 @@ struct MonCompte: View {
                             self.activeAlert = .third
                         }
                         else {
-                            self.session.pseudo = self.pseudo
-                            self.session.email =  self.email
-                            self.session.password = self.password
+                            self.session!.pseudo = self.pseudo
+                            self.session!.email =  self.email
+                            self.session!.password = self.password
                             UserViewModel().updateAccount(email : self.email, pseudo : self.pseudo, password : self.password)
                             self.presentationMode.wrappedValue.dismiss()
                         }

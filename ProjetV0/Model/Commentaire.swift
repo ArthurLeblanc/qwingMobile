@@ -21,4 +21,18 @@ class Commentaire : Contenu {
     @Published var dislikes : Int = 0
     @Published var propos : Propos
     
+    static func isLiked(com: Commentaire, user: Utilisateur?) -> Bool {
+        if (user != nil) {
+            return (user!.commentairesLikes.firstIndex{$0.idC == com.idC} != nil)
+        }
+        return false
+    }
+    
+    static func isDisliked(com: Commentaire, user: Utilisateur?) -> Bool {
+        if (user != nil) {
+            return (user!.commentairesDislikes.firstIndex{$0.idC == com.idC} != nil)
+        }
+        return false
+    }
+    
 }

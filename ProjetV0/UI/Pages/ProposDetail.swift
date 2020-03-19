@@ -11,12 +11,12 @@ import SwiftUI
 struct ProposDetail: View {
     
     var proposDetailViewModel : ProposDetailViewModel = ProposDetailViewModel()
-    var session : Utilisateur?
+    @State var session : Utilisateur?
     @State var showComments : Bool = false
     @State var showAnswers : Bool = false
     var formatter = DateFormatter()
     
-    var contenu : Propos
+    @State var contenu : Propos
     @State var contenuR : String = ""
     @State var categorieR : String = ""
     
@@ -33,34 +33,14 @@ struct ProposDetail: View {
         }
     }
     
-    init(contenu : Propos, utilisateur : Utilisateur?) {
-        self.session = utilisateur
-        self.contenu = contenu
-    }
-    
     func comments() -> some View {
         return
             VStack {
                 Text("Espace commentaires :")
                 List {
-                    ForEach(contenu.commentaires) {
+                    ForEach(self.contenu.commentaires) {
                         c in
-                        CommentRow(commentaire : c, session: self.session)
-                        /*if (self.session != nil){
-                            // Ajout d'un like TODO
-                            Button(action : {
-                                //c.flike(utilisateur : self.session)
-                            }) {
-                                
-                            }
-                            // Ajout d'un dislike TODO
-                            Button(action : {
-                                //c.fdislike(utilisateur : self.session)
-                            }) {
-                                
-                            }
-                        }*/
-
+                        CommentRow(commentaire : c, session: self.session, liked: Commentaire.isLiked(com: c, user: self.session), disliked: Commentaire.isDisliked(com: c, user: self.session))
                     }
                     
                 }
@@ -72,12 +52,9 @@ struct ProposDetail: View {
                 NavigationLink(destination : Accueil(session: self.session)) {
                     Button(action: {
                         self.proposDetailViewModel.addCommentToPropos(commentaire: self.commentaire, propos: self.contenu, createur: self.session)
-                        /*self.contenu.commentaires.append(
-                            Commentaire(contenu: self.commentaire, createur: self.session, propos: self.contenu, likes: 0, dislikes: 0))
-                        self.showComments = false
-                        self.showComments = true*/
-
-
+                        self.contenu.commentaires.append(
+                            Commentaire(contenu: self.commentaire, createur: self.session, propos: self.contenu, likes: 0, dislikes: 0, idC: ""))
+                        
                     }) {
                         Text("Ajouter le commentaire")
                     }
@@ -88,34 +65,15 @@ struct ProposDetail: View {
     }
     
     func answers() -> some View {
-        
-        
         return
-            
             VStack {
                 Text("Espace réponses :")
                     .padding(.top)
                 List {
-                    ForEach(contenu.reponses) {
-                            r in
-                        ReponseRow(reponse: r, session: self.session)
-                            /*Text(r.contenu)
-                            if (self.session.getActive() == true){
-                                // Ajout d'un like TODO
-                                Button(action : {
-                                    //r.flike(utilisateur : self.session)
-                                }) {
-                                    Text("Like")
-                                }
-                                // Ajout d'un dislike TODO
-                                Button(action : {
-                                    //r.fdislike(utilisateur : self.session)
-                                }) {
-                                    Text("Dislike")
-                                }
-                            }*/
-                        }
-                    
+                    ForEach(self.contenu.reponses) {
+                        r in
+                        ReponseRow(reponse: r, session: self.session, liked: Reponse.isLiked(rep: r, user: self.session), disliked: Reponse.isDisliked(rep: r, user: self.session))
+                    }
                 }
                 Spacer()
                 Text("Ajout d'une réponse :")
@@ -126,12 +84,9 @@ struct ProposDetail: View {
                 NavigationLink(destination : Accueil(session: self.session)) {
                     Button(action: {
                         self.proposDetailViewModel.addReponseToPropos(contenu: self.contenuR, categorie: self.picker.categories[self.picker.selection], propos: self.contenu, createur: self.session)
-                        /*self.contenu.reponses.append(
-                            Reponse(contenu : self.contenuR, categorie : self.categorieR, createur : self.session, propos: self.contenu, likes: 0, dislikes: 0)
-                        )
-                        self.showAnswers = false
-                        self.showAnswers = true*/
-
+                        self.contenu.reponses.append(
+                            Reponse(contenu : self.contenuR, categorie : self.categorieR, createur : self.session, propos: self.contenu, likes: 0, dislikes: 0, idC: "")
+                         )
                     }) {
                         Text("Ajouter la reponse")
                     }
@@ -183,4 +138,4 @@ struct ProposDetail: View {
  }
  }
  
-*/
+ */
