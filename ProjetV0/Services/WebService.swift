@@ -68,7 +68,6 @@ class WebService : ObservableObject {
         request.httpMethod = "GET"
         request.setValue(user.email, forHTTPHeaderField: "email")
         let semaphore = DispatchSemaphore(value : 0)
-        print("coucou")
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             
             if error != nil || data == nil {
@@ -90,7 +89,6 @@ class WebService : ObservableObject {
                 // Pour chaque propos dans le json, créee un propos et l'ajoute à la liste des propos
                 for propos in json.arrayValue {
                     if let unPropos = self.decodePropos(propos: propos) {
-                        print("aaaaaaaaa")
                         proposList.append(unPropos)
                     }
                 }
