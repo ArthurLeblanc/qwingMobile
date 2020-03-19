@@ -18,9 +18,12 @@ struct ReponseRow: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Text("proposé par - \(self.reponse.createur?.pseudo ?? "Anonyme")")
+                Text("proposé par - \(self.reponse.createur?.pseudo ?? "Anonyme") -")
                     .font(.caption)
                     .padding([.top, .leading])
+                Text("\(self.reponse.categorie)")
+                    .font(.caption).bold()
+                    .padding(.top)
                 Spacer()
                 if (self.session != nil && self.session?.email == reponse.createur?.email) {
                     Image(systemName: "trash").padding(.bottom).onTapGesture {
@@ -36,7 +39,7 @@ struct ReponseRow: View {
                 .font(.headline)
                 .padding(.all)
             HStack {
-                //Text("Voir les réponses >").font(.caption).padding([.leading, .bottom])
+                Text("Créé le : \(reponse.date)").font(.caption).padding([.leading, .bottom])
                 
                 Spacer()
                 if (self.session == nil) {

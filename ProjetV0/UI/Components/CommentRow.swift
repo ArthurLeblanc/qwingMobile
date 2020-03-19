@@ -48,7 +48,6 @@ struct CommentRow: View {
                         }.padding([.top, .trailing])
                     }
                 }
-                nomCreateur()
                 Text(commentaire.contenu)
                     .foregroundColor(.white)
                     .fixedSize(horizontal: false, vertical: true)
