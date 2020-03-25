@@ -15,6 +15,7 @@ struct CommentRow: View {
     @State var liked: Bool
     @State var disliked: Bool
     @State var showingAlert = false
+    @Binding var liste : [Commentaire]
     
     func nomCreateur() -> some View {
         if let createur = commentaire.createur {
@@ -42,6 +43,9 @@ struct CommentRow: View {
                     if (self.session != nil && self.session?.email == commentaire.createur?.email) {
                         Image(systemName: "trash").padding(.bottom).onTapGesture {
                             WebService().deleteCommentaire(reponse: self.commentaire, createur: self.session!)
+                            if let index = self.liste.firstIndex(where: {$0.idC == self.commentaire.idC}) {
+                                self.liste.remove(at: index)
+                            }
                             self.showingAlert.toggle()
                         }.alert(isPresented: $showingAlert) {
                             Alert(title: Text("Information"), message: Text("Commentaire supprimé"), dismissButton: .default(Text("Ok")))

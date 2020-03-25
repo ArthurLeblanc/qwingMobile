@@ -38,8 +38,8 @@ struct AjoutPropos: View {
             //Attention Bien faire le retour ou effacer les champs
             NavigationLink(destination : Accueil()) {
                 Button(action: {
-                    ProposListeViewModel().addPropos(contenu: self.contenu, categorie: self.picker.categories[self.picker.selection], createur: self.session)
-                    self.proposListe.proposListe.append(Propos(contenu: self.contenu, categorie: self.categorie, createur: self.session, likes: 0, reponses: [Reponse](), commentaires: [Commentaire](), idC: "", date: Date.dateToString(date: Date())))
+                    let propos = ProposListeViewModel().addPropos(contenu: self.contenu, categorie: self.picker.categories[self.picker.selection], createur: self.session)
+                    self.proposListe.proposListe.append(propos)
                     self.presentationMode.wrappedValue.dismiss()
                 }) {
                     Text("Ajouter")

@@ -125,7 +125,7 @@ struct MonCompte: View {
             }
             .padding(.horizontal, 30.0)
             
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

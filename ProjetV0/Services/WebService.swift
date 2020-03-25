@@ -549,13 +549,14 @@ class WebService : ObservableObject {
         }.resume()
     }
     
-    func addCommentToPropos(propos : Propos, commentaire : String, createur : Utilisateur?) {
+    func addCommentToPropos(propos : Propos, commentaire : String, createur : Utilisateur?) -> Commentaire {
         print("id du propos : " + propos.idC)
         let url = URL(string : self.url + "propos/add-commentaire")
         guard let requestUrl = url else { fatalError() }
-        
+        var com : Commentaire?
         var request = URLRequest(url: requestUrl)
         request.httpMethod = "PUT"
+        let semaphore = DispatchSemaphore(value : 0)
         print("contenu du commentaire : " + commentaire)
         let putString = "contenu=\(commentaire)&proposId=\(propos.idC)"
         if let user = createur {
@@ -582,16 +583,22 @@ class WebService : ObservableObject {
             }
             do {
                 let json = try JSON(data: data!)
-                print("json : \(json)")
-                
+                print(json)
+                guard let id = json["id"].string else {
+                           print("Erreur dans la structure du JSON")
+                           return
+                       }
+                com = Commentaire(contenu: commentaire, createur: createur, propos: propos, likes: 0, dislikes: 0, idC: id, date: Date.dateToString(date: Date()))
             }
             catch {
                 print("JSON error: \(error.localizedDescription)")
             }
-            
+            semaphore.signal()
             
         }
         task.resume()
+        semaphore.wait()
+        return com!
     }
     
     func addPropos(contenu : String, categorie : String, createur : Utilisateur?) -> Propos {
@@ -644,7 +651,7 @@ class WebService : ObservableObject {
         return propos!
     }
     
-    func addReponseToPropos(propos : Propos, contenu : String, categorie : String, createur : Utilisateur?) {
+    func addReponseToPropos(propos : Propos, contenu : String, categorie : String, createur : Utilisateur?) -> Reponse {
         print("id du propos : " + propos.idC)
         let url = URL(string : self.url + "propos/add-reponse")
         guard let requestUrl = url else {
@@ -652,9 +659,10 @@ class WebService : ObservableObject {
             fatalError()
             
         }
-        
+        var rep : Reponse?
         var request = URLRequest(url: requestUrl)
         request.httpMethod = "PUT"
+        let semaphore = DispatchSemaphore(value : 0)
         let putString = "contenu=\(contenu)&proposId=\(propos.idC)&categorie=\(categorie)"
         request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
         if let user = createur {
@@ -678,18 +686,25 @@ class WebService : ObservableObject {
                 print("Wrong MIME type!")
                 return
             }
-            do {
-                let json = try JSON(data: data!)
-                print("json : \(json)")
+                do {
+                    let json = try JSON(data: data!)
+                    print(json)
+                    guard let id = json["id"].string else {
+                               print("Erreur dans la structure du JSON")
+                               return
+                           }
+                    rep = Reponse(contenu: contenu, categorie: categorie, createur: createur, propos: propos, likes: 0, dislikes: 0, idC: id, date: Date.dateToString(date: Date()))
+                }
+                catch {
+                    print("JSON error: \(error.localizedDescription)")
+                }
+                semaphore.signal()
+                
                 
             }
-            catch {
-                print("JSON error: \(error.localizedDescription)")
-            }
-            
-            
-        }
-        task.resume()
+            task.resume()
+            semaphore.wait()
+            return rep!
     }
     
     func deletePropos(propos : Propos, createur : Utilisateur) {

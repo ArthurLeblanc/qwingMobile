@@ -32,7 +32,7 @@ struct ProposRow: View {
                         if let index = self.proposListe.proposListe.firstIndex(where: {$0.idC == self.propos.idC}) {
                             self.proposListe.proposListe.remove(at: index)
                         }
-                        self.showingAlert2.toggle()
+                        //self.showingAlert2.toggle()
                     }.alert(isPresented: $showingAlert2) {
                         Alert(title: Text("Information"), message: Text("Propos supprimé"), dismissButton: .default(Text("Ok")))
                     }.padding([.top, .trailing])

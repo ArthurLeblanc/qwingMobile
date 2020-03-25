@@ -85,7 +85,7 @@ struct MenuView: View {
             NavigationLink(destination: ProposUser(session: self.session)) {
                 Row(rowActive: false, icon: "rectangle.grid.1x2", text: "Mes propos")
             }
-            Row(rowActive: false, icon: "plus.circle", text: "Mes réponses")
+            //Row(rowActive: false, icon: "plus.circle", text: "Mes réponses")
             
             NavigationLink(destination: ProposLiked(session: self.session)) {
                 Row(rowActive: false, icon: "heart", text: "Mes propos entendus")

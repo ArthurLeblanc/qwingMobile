@@ -14,6 +14,7 @@ struct ReponseRow: View {
     @State var liked: Bool
     @State var disliked: Bool
     @State var showingAlert = false
+    @Binding var liste : [Reponse]
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -28,7 +29,10 @@ struct ReponseRow: View {
                 if (self.session != nil && self.session?.email == reponse.createur?.email) {
                     Image(systemName: "trash").padding(.bottom).onTapGesture {
                         WebService().deleteReponse(reponse: self.reponse, createur: self.session!)
-                        self.showingAlert.toggle()
+                        if let index = self.liste.firstIndex(where: {$0.idC == self.reponse.idC}) {
+                            self.liste.remove(at: index)
+                        }
+                        //self.showingAlert.toggle()
                     }.alert(isPresented: $showingAlert) {
                         Alert(title: Text("Information"), message: Text("Réponse supprimée"), dismissButton: .default(Text("Ok")))
                     }.padding([.top, .trailing])
