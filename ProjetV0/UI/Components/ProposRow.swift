@@ -46,7 +46,7 @@ struct ProposRow: View {
                 Text("Créé le : \(propos.date)").font(.caption).padding([.leading, .bottom])
                 Spacer()
                 if (self.session == nil) {
-                    Image(systemName: "hand.thumbsup").padding(.bottom).onTapGesture {
+                    Image(systemName: "ear").padding(.bottom).onTapGesture {
                         self.showingAlert.toggle()
                     }.alert(isPresented: $showingAlert) {
                         Alert(title: Text("Information"), message: Text("Vous devez vous connecter pour aimer un propos !"), dismissButton: .default(Text("J'ai compris !")))

@@ -6,6 +6,7 @@
 //  Copyright © 2020 user164566. All rights reserved.
 //
 
+
 import SwiftUI
 
 struct Accueil: View {
@@ -13,16 +14,23 @@ struct Accueil: View {
     @EnvironmentObject var proposListe : ProposListeViewModel
     @State var session : Utilisateur?
     @State var showMenu = false
+    @State var recherche : String = ""
+    @State var proposToShow : [Propos]  = []
     @Environment(\.presentationMode) var presentationMode
     
     func phraseBienvenue() -> some View {
         if let session = self.session {
-            return Text("Vous êtes connecté en tant que (pseudo) : " + session.pseudo )
+            return Text("Vous êtes connecté en tant que : " + session.pseudo )
         } else {
             return Text("Vous êtes connecté anonymement")
                 .foregroundColor(Color(red: 0.02, green: 0.153, blue: 0.208))
         }
         
+    }
+    
+    func rechercheNulle() {
+        self.proposToShow.removeAll()
+        self.proposToShow.append(contentsOf: self.proposListe.proposListe)
     }
     
     
@@ -38,6 +46,21 @@ struct Accueil: View {
                     }
                 }
         }
+        
+        DispatchQueue.main.async {
+        var i : Int = 0
+           self.rechercheNulle()
+               if (self.recherche != ""){
+           while (i < self.proposToShow.count) {
+               if(!(self.proposToShow[i].contenu.lowercased().contains(self.recherche.lowercased()))){
+                   self.proposToShow.remove(at: i)
+               }
+               else {
+               i = i+1
+               }
+           }
+               }
+           }
         
         return NavigationView {
             GeometryReader { geometry in
@@ -62,8 +85,13 @@ struct Accueil: View {
                             Text("Les plus populaires")
                                 .font(.headline).foregroundColor(Color(red: 0.02, green: 0.153, blue: 0.208))
                             Divider()
+                            TextField("Rechercher", text: self.$recherche)
+                            .padding()
+                            .background(lightGreyColor)
+                            .cornerRadius(5.0)
+                            .padding(.horizontal, 20)
                             List {
-                                ForEach (self.proposListe.proposListe) {
+                                ForEach (self.proposToShow) {
                                     p in
                                     NavigationLink(destination : ProposDetail(session: self.session, contenu: p, reponses: p.reponses, commentaires: p.commentaires)) {
                                         ProposRow(propos: p, liked: p.isLiked(user: self.session), session: self.session)
@@ -96,12 +124,3 @@ struct Accueil: View {
     }
 
 }
-/*
- struct Accueil_Previews: PreviewProvider {
- static var previews: some View {
- //Accueil( session: Utilisateur(pseudo: "pseudo", email: "email", password: "pass", isAdmin: true, ville: "Montpellier"), listeBD: UtilisateurListe())
- Accueil(session: Utilisateur(pseudo: "a", email: "a", password: "a"))
- }
- }
- 
- */
