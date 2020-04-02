@@ -106,6 +106,65 @@ class WebService : ObservableObject {
         
     }
     
+    func searchPropos(search : String) -> [String]     {
+        var p = [String]()
+        let url = URL(string : self.url + "propos/search")
+        guard let requestUrl = url else { fatalError() }
+        var request = URLRequest(url: requestUrl)
+        request.httpMethod = "POST"
+        let postString = "search=\(search)"
+        
+        request.httpBody = postString.data(using: String.Encoding.utf8)
+        let semaphore = DispatchSemaphore(value : 0)
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            
+            if error != nil || data == nil {
+                print("Erreur côté client 2")
+                return
+            }
+            // Vérifie le code HTTP de réponse du serveur
+            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+                print("Erreur du serveur 2")
+                return
+            }
+            // Vérifie que le format des données du serveur en réponse est bien du JSON
+            guard let mime = response.mimeType, mime == "application/json" else {
+                print("Wrong MIME type 2!")
+                return
+            }
+            do {
+                let json = try JSON(data: data!)
+
+                let score : String
+                let contenu : String
+                
+                if (json["score"]).exists() {
+                    score = json["score"].stringValue
+                } else {
+                    score = "0"
+                }
+                
+                if (json["contenu"]).exists() {
+                    contenu = json["contenu"].stringValue
+                } else {
+                    contenu = "null"
+                }
+                print(score + "////" + contenu)
+                p.append(score)
+                p.append(contenu)
+      
+                semaphore.signal()
+            }
+            catch {
+                print("JSON error: \(error.localizedDescription)")
+            }
+            
+        }.resume()
+        semaphore.wait()
+        return p
+        
+    }
+    
     func getTokenFromLoginInfos(email : String, password : String) -> String {
         
         let url = URL(string : self.url + "users/login")

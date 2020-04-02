@@ -14,8 +14,8 @@
             filePath = "ProjetV0/Services/WebService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
             landmarkName = "getTokenFromLoginInfos(email:password:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -46,8 +46,8 @@
             filePath = "ProjetV0/Services/WebService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "202"
-            endingLineNumber = "202"
+            startingLineNumber = "261"
+            endingLineNumber = "261"
             landmarkName = "getUserInfosFromToken(token:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -62,8 +62,8 @@
             filePath = "ProjetV0/Services/WebService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "156"
-            endingLineNumber = "156"
+            startingLineNumber = "215"
+            endingLineNumber = "215"
             landmarkName = "getTokenFromLoginInfos(email:password:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -78,8 +78,8 @@
             filePath = "ProjetV0/Services/WebService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "155"
-            endingLineNumber = "155"
+            startingLineNumber = "214"
+            endingLineNumber = "214"
             landmarkName = "getTokenFromLoginInfos(email:password:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -94,9 +94,9 @@
             filePath = "ProjetV0/Services/WebService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "274"
-            endingLineNumber = "274"
-            landmarkName = "signup(email:pseudo:password:)"
+            startingLineNumber = "333"
+            endingLineNumber = "333"
+            landmarkName = "getAllProposCategories()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -110,9 +110,9 @@
             filePath = "ProjetV0/Services/WebService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "445"
-            endingLineNumber = "445"
-            landmarkName = "dislikePropos(propos:utilisateur:)"
+            startingLineNumber = "504"
+            endingLineNumber = "504"
+            landmarkName = "deleteAccount(email:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -174,9 +174,9 @@
             filePath = "ProjetV0/Services/WebService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "479"
-            endingLineNumber = "479"
-            landmarkName = "actionReponse(reponse:utilisateur:action:)"
+            startingLineNumber = "538"
+            endingLineNumber = "538"
+            landmarkName = "likePropos(propos:utilisateur:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -190,9 +190,9 @@
             filePath = "ProjetV0/Services/WebService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "835"
-            endingLineNumber = "835"
-            landmarkName = "decodePropos(propos:)"
+            startingLineNumber = "894"
+            endingLineNumber = "894"
+            landmarkName = "deletePropos(propos:createur:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
