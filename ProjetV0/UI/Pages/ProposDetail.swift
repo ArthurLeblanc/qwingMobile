@@ -25,7 +25,7 @@ struct ProposDetail: View {
     
     @State var commentaire : String = ""
     
-    @State var picker : PickerView = PickerView(categories : ["Humour", "Texte de loi", "Citation", "Autre"])
+    @State var picker : PickerView = PickerView(categories : WebService().getAllReponsesCategories())
     
     func postCreator(c : Contenu) -> String {
         if let createurPost = c.createur{

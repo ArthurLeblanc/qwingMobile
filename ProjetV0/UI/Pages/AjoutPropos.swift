@@ -16,7 +16,7 @@ struct AjoutPropos: View {
     @State var jaime : Int = 0
     @State var jaimePas : Int = 0
     @Environment(\.presentationMode) var presentationMode
-    @State var picker : PickerView = PickerView(categories : ["Dans la rue", "Dans les transports", "Au travail", "Autre"])
+    @State var picker : PickerView = PickerView(categories : WebService().getAllProposCategories())
     @EnvironmentObject var proposListe : ProposListeViewModel
     
     /*

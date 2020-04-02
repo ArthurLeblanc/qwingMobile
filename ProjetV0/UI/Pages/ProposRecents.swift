@@ -39,7 +39,7 @@ struct ProposRecents: View {
                 ZStack {
                     NavigationView {
                         VStack {
-                            Image("logo").resizable().frame(width: 150.0, height: 145.0).scaledToFit()
+                            Image("logo").resizable().frame(width: 150.0, height: 145.0).scaledToFit()              
 
                             
                             Text("Les plus récents")

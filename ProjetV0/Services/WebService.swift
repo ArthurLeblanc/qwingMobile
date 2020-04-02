@@ -248,6 +248,97 @@ class WebService : ObservableObject {
         semaphore.wait()
         return loggedUser
     }
+    
+    func getAllProposCategories() -> [String] {
+           let url = URL(string : self.url + "categories/propos")
+           guard let requestUrl = url else { fatalError() }
+           var request = URLRequest(url: requestUrl)
+           request.httpMethod = "GET"
+           var categories : [String] = []
+           let semaphore = DispatchSemaphore(value : 0)
+           URLSession.shared.dataTask(with: request) { (data, response, error) in
+               
+               if error != nil || data == nil {
+                   print("Erreur côté client 2")
+                   return
+               }
+               // Vérifie le code HTTP de réponse du serveur
+               guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+                   print("Erreur du serveur 2")
+                   return
+               }
+               // Vérifie que le format des données du serveur en réponse est bien du JSON
+               guard let mime = response.mimeType, mime == "application/json" else {
+                   print("Wrong MIME type 2!")
+                   return
+               }
+               do {
+                   let json = try JSON(data: data!)
+
+                   
+                   for categorie in json.arrayValue {
+                        if let uneCategorie = categorie["contenu"].string {
+                            print(uneCategorie)
+                          categories.append(uneCategorie)
+                       }
+                   }
+                   semaphore.signal()
+               }
+               catch {
+                   print("JSON error: \(error.localizedDescription)")
+               }
+               
+               
+           }.resume()
+           semaphore.wait()
+           return categories
+       }
+    
+    func getAllReponsesCategories() -> [String] {
+        let url = URL(string : self.url + "categories/reponses")
+        guard let requestUrl = url else { fatalError() }
+        var request = URLRequest(url: requestUrl)
+        request.httpMethod = "GET"
+        var categories : [String] = []
+        let semaphore = DispatchSemaphore(value : 0)
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            
+            if error != nil || data == nil {
+                print("Erreur côté client 2")
+                return
+            }
+            // Vérifie le code HTTP de réponse du serveur
+            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+                print("Erreur du serveur 2")
+                return
+            }
+            // Vérifie que le format des données du serveur en réponse est bien du JSON
+            guard let mime = response.mimeType, mime == "application/json" else {
+                print("Wrong MIME type 2!")
+                return
+            }
+            do {
+                let json = try JSON(data: data!)
+
+                
+                for categorie in json.arrayValue {
+                     if let uneCategorie = categorie["contenu"].string {
+                         print(uneCategorie)
+                       categories.append(uneCategorie)
+                    }
+                }
+                semaphore.signal()
+            }
+            catch {
+                print("JSON error: \(error.localizedDescription)")
+            }
+            
+            
+        }.resume()
+        semaphore.wait()
+        return categories
+    }
+    
     //TODO Crypter password
     func login(email : String, password : String) -> Utilisateur? {
         let token = getTokenFromLoginInfos(email: email, password: password)
