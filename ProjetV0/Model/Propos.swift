@@ -15,9 +15,11 @@ class Propos : Contenu {
         self.categorie = categorie
         self.reponses = reponses ?? []
         self.commentaires = commentaires ?? []
+        self.dateP = conversionStringToDate(strDate: date)
     }
     
     @Published var categorie : String = ""
+    @Published var dateP : Date = Date()
     var reponses : [Reponse] = [Reponse]()
     var commentaires : [Commentaire] = [Commentaire]()
     
@@ -27,5 +29,13 @@ class Propos : Contenu {
         }
         return false
     }
+    
+    func conversionStringToDate(strDate : String) -> Date{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd'/'MM'/'yyyy"
+        let date = dateFormatter.date(from: strDate)
+        return date!
+    }
+    
 }
 

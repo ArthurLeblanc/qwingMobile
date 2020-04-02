@@ -46,13 +46,13 @@ struct ProposRow: View {
                 Text("Créé le : \(propos.date)").font(.caption).padding([.leading, .bottom])
                 Spacer()
                 if (self.session == nil) {
-                    Image(systemName: "ear").padding(.bottom).onTapGesture {
+                    Image(systemName: "hand.raised").padding(.bottom).onTapGesture {
                         self.showingAlert.toggle()
                     }.alert(isPresented: $showingAlert) {
                         Alert(title: Text("Information"), message: Text("Vous devez vous connecter pour aimer un propos !"), dismissButton: .default(Text("J'ai compris !")))
                     }
                 } else {
-                    Image(systemName: self.liked ? "hand.thumbsup.fill" : "hand.thumbsup").padding(.bottom).onTapGesture {
+                    Image(systemName: self.liked ? "hand.raised.fill" : "hand.raised").padding(.bottom).onTapGesture {
                         if (self.liked) {
                             self.session!.dislikePropos(propos: self.propos)
                             self.propos.likes -= 1

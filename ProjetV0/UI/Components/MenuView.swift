@@ -13,6 +13,7 @@ struct MenuView: View {
     @Binding var session : Utilisateur?
     @Binding var showMenu : Bool
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var proposListe : ProposListeViewModel
     
     
     var whoIsActive : String
@@ -86,6 +87,10 @@ struct MenuView: View {
                 Row(rowActive: false, icon: "rectangle.grid.1x2", text: "Mes propos")
             }
             //Row(rowActive: false, icon: "plus.circle", text: "Mes réponses")
+            
+            NavigationLink(destination: ProposRecents(proposListe : self.proposListe.orderPropos(), session: self.session)) {
+                Row(rowActive: false, icon: "clock", text: "Propos récents")
+            }
             
             NavigationLink(destination: ProposLiked(session: self.session)) {
                 Row(rowActive: false, icon: "heart", text: "Mes propos entendus")

@@ -10,6 +10,8 @@ import Foundation
 
 class ProposListeViewModel : ObservableObject {
     @Published var proposListe = [Propos]()
+    @Published var proposOrdered = [Propos]()
+
     static let singleton = ProposListeViewModel()
     
     init() {
@@ -28,6 +30,20 @@ class ProposListeViewModel : ObservableObject {
     func getProposFromUser(user : Utilisateur) -> [Propos]{
         return WebService().getProposFromUser(user: user)
     }
+    
+    func conversionStringToDate(strDate : String) -> Date{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd'/'MM'/'yyyy"
+        let date = dateFormatter.date(from: strDate)
+        return date!
+    }
+    
+    func orderPropos() -> [Propos] {
+        return self.proposListe.sorted(by: {
+            $0.dateP.compare($1.dateP) == .orderedDescending
+        })
+    }
+    
 }
 
 
